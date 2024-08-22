@@ -1,6 +1,11 @@
 # Projeto-Requisitos
 Projeto desenvolvido para a cadeira de Requisitos e validação (temática a decidir).
 
+8 Funcionalidades (não ser CRUD)
+- 
+
+# Requisitos gerais
+
 # Requisitos da 1ª entrega
 - 
 # Requisitos da 2ª entrega

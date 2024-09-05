@@ -1,0 +1,34 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'Animal' Aggregate" <<Rectangle>> {
+	class Animal <<(A,#fffab8) Aggregate Root>> {
+		String nome_animal
+		String idade_animal
+		String especie
+		String raca
+		String porte
+		Boolean foi_adotado
+		IdAnimal id_animal
+		IdAbrigo id_abrigo
+		Personalidade personalidade_animal
+		IdPessoa[0..1] adotante
+	}
+	class IdAnimal <<(V,DarkSeaGreen) Value Object>> {
+		int id_animal
+	}
+	class Personalidade <<(V,DarkSeaGreen) Value Object>> {
+		String personalidade
+		String comportamento
+	}
+	class Adocao <<(V,DarkSeaGreen) Value Object>> {
+		Date data_adocao
+		IdPessoa adotante
+	}
+}
+Animal --> IdAnimal : id_animal
+Animal --> Personalidade : personalidade_animal
+
+
+@enduml

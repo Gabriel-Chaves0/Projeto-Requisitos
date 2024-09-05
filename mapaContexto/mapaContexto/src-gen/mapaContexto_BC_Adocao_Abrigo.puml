@@ -1,0 +1,34 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'Abrigo' Aggregate" <<Rectangle>> {
+	class Abrigo <<(A,#fffab8) Aggregate Root>> {
+		String nome_abrigo
+		IdAbrigo id_abrigo
+		Endereco endereco_abrigo
+		Contato contato_abrigo
+		List<IdAnimal> animais_abrigados
+	}
+	class IdAbrigo <<(V,DarkSeaGreen) Value Object>> {
+		int id_abrigo
+	}
+	class Endereco <<(V,DarkSeaGreen) Value Object>> {
+		String cep
+		String estado
+		String cidade
+		String rua
+		int numero
+		String[0..1] complemento
+	}
+	class Contato <<(V,DarkSeaGreen) Value Object>> {
+		String telefone
+		String email_contato
+	}
+}
+Abrigo --> IdAbrigo : id_abrigo
+Abrigo --> Endereco : endereco_abrigo
+Abrigo --> Contato : contato_abrigo
+
+
+@enduml

@@ -1,0 +1,86 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'Abrigo' Aggregate" <<Rectangle>> {
+	class Abrigo <<(A,#fffab8) Aggregate Root>> {
+		String nome_abrigo
+		IdAbrigo id_abrigo
+		Endereco endereco_abrigo
+		Contato contato_abrigo
+		List<IdAnimal> animais_abrigados
+	}
+	class IdAbrigo <<(V,DarkSeaGreen) Value Object>> {
+		int id_abrigo
+	}
+	class Endereco <<(V,DarkSeaGreen) Value Object>> {
+		String cep
+		String estado
+		String cidade
+		String rua
+		int numero
+		String[0..1] complemento
+	}
+	class Contato <<(V,DarkSeaGreen) Value Object>> {
+		String telefone
+		String email_contato
+	}
+}
+package "'Animal' Aggregate" <<Rectangle>> {
+	class Animal <<(A,#fffab8) Aggregate Root>> {
+		String nome_animal
+		String idade_animal
+		String especie
+		String raca
+		String porte
+		Boolean foi_adotado
+		IdAnimal id_animal
+		IdAbrigo id_abrigo
+		Personalidade personalidade_animal
+		IdPessoa[0..1] adotante
+	}
+	class IdAnimal <<(V,DarkSeaGreen) Value Object>> {
+		int id_animal
+	}
+	class Personalidade <<(V,DarkSeaGreen) Value Object>> {
+		String personalidade
+		String comportamento
+	}
+	class Adocao <<(V,DarkSeaGreen) Value Object>> {
+		Date data_adocao
+		IdPessoa adotante
+	}
+}
+package "'Pessoa' Aggregate" <<Rectangle>> {
+	class Pessoa <<(A,#fffab8) Aggregate Root>> {
+		String nome_pessoa
+		String cpf
+		String idade_pessoa
+		IdPessoa id_pessoa
+		Endereco endereco_pessoa
+		Contato contato_pessoa
+		List<IdAnimal> animais_adotados
+	}
+	class IdPessoa <<(V,DarkSeaGreen) Value Object>> {
+		int id_pessoa
+	}
+}
+Adocao --> IdPessoa : adotante
+Pessoa --> IdPessoa : id_pessoa
+Animal --> IdAnimal : id_animal
+Pessoa --> Contato : contato_pessoa
+Abrigo "1" o--> "*" IdAnimal : animais_abrigados
+Abrigo --> Endereco : endereco_abrigo
+Abrigo --> Contato : contato_abrigo
+Animal --> Personalidade : personalidade_animal
+Abrigo --> IdAbrigo : id_abrigo
+Pessoa "1" o--> "*" IdAnimal : animais_adotados
+Animal "1" --> "0..1" IdPessoa : adotante
+Animal --> IdAbrigo : id_abrigo
+Pessoa --> Endereco : endereco_pessoa
+legend left
+  This bounded context implements the subdomain 'Adocao'.
+end legend
+
+
+@enduml

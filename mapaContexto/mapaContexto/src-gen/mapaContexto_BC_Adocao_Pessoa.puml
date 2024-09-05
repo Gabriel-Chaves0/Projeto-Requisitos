@@ -1,0 +1,22 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'Pessoa' Aggregate" <<Rectangle>> {
+	class Pessoa <<(A,#fffab8) Aggregate Root>> {
+		String nome_pessoa
+		String cpf
+		String idade_pessoa
+		IdPessoa id_pessoa
+		Endereco endereco_pessoa
+		Contato contato_pessoa
+		List<IdAnimal> animais_adotados
+	}
+	class IdPessoa <<(V,DarkSeaGreen) Value Object>> {
+		int id_pessoa
+	}
+}
+Pessoa --> IdPessoa : id_pessoa
+
+
+@enduml

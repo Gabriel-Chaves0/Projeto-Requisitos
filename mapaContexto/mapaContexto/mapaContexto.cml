@@ -20,6 +20,11 @@
 
 // Como deixar organizado??
 
+// Value objects de diferentes agregados devem ser reutilizados?
+
+// A questão de receber a notificação ficaria aonde?
+
+
 Domain SistemaAdocao {
 	Subdomain Adocao
 }
@@ -28,23 +33,65 @@ Domain SistemaAdocao {
 BoundedContext Adocao implements Adocao {
 	
 	Aggregate Abrigo {
+		Service CRUDAbrigo{
+			void inserirAbrigo(@IdAbrigo id, @Endereco end, @Contato cont, String nome);
+			void editarAbrigo(@IdAbrigo id, @Endereco end, @Contato cont, String nome);
+		}
+		Service CRUDAnimal{
+			void inserirAnimal(@IdAnimal id_anim, @IdAbrigo id_abr, 
+				String nome, String idade_animal, String especie, String raca, String porte
+			);
+			void editarAnimal(@IdAnimal id_anim, @IdAbrigo id_abr, 
+				String nome, String idade_animal, String especie, String raca, String porte
+			);
+			void dadosAnimal(@IdAnimal id);
+		}
+		Service PersonalidadeAnimal{
+			void inserirPersonalidades (@IdAnimal id, List<@Personalidade> tags);
+			void removerPersonalidades (@IdAnimal id, List<@Personalidade> tags);
+		}
+		Service StatusAnimal{ 
+			void adotarAnimal(@IdAnimal id_anim, @IdPessoa id_pessoa);
+			Boolean mudarStatusAnimal(@IdAnimal id_anim, Boolean foi_adotado);
+		}
+		
+		
+		
+		
 		Entity Abrigo {
 			aggregateRoot
-			
+
 			-IdAbrigo id_abrigo 
 			-Endereco endereco_abrigo
 			-Contato contato_abrigo
-			-List<Avaliacao> avaliacoes
+			-List<Avaliacao> avaliacoes_abrigo
 			String nome_abrigo
 			-List<IdAnimal> animais_abrigados
 			
+			def void inserirAbrigo(@Endereco end, @Contato cont, String nome);
+			def void editarAbrigo(@Endereco end, @Contato cont, String nome);
+			def void inserirAnimal(@IdAnimal id_animal, String nome, String idade_animal, 
+				String especie, String raca, String porte
+			);
+			def void editarAnimal(@IdAnimal id_anim, String nome, String idade_animal, 
+				String especie, String raca, String porte
+			);
+			def void inserirPersonalidades(@IdAnimal id_anim, List<@Personalidade> tags);
+			def void removerPersonalidades(@IdAnimal id_anim, List<@Personalidade> tags);
+			def void dadosAnimal(@IdAnimal id_anim);
+			def void adotarAnimal(@IdAnimal id_anim, @IdPessoa id_pessoa);
+			def Boolean mudarStatusAnimal(@IdAnimal id_anim, Boolean foi_adotado);
 			
+			Repository AbrigoRepository{
+				@Abrigo obter(@Abrigo id_abrigo); 
+				@Abrigo remover(@Abrigo id_abrigo); 
+				List<@Abrigo> listarAbrigos;  
+			} 
 		}
 		
 		ValueObject IdAbrigo {
 			int id_abrigo
 		}
-		
 		ValueObject Endereco {
 			String cep
 			String estado
@@ -53,18 +100,18 @@ BoundedContext Adocao implements Adocao {
 			int numero
 			String complemento nullable
 		}
-		
 		ValueObject Contato {
 			String telefone
 			String email_contato
 		}
-		
 		ValueObject Avaliacao{
 			-IdPessoa avaliador
+			Date data_avaliacao
 			int nota
 			String descricao nullable
 		}
 	}
+	
 	
 	
 	
@@ -74,56 +121,93 @@ BoundedContext Adocao implements Adocao {
 			
 			-IdAnimal id_animal
 			-IdAbrigo id_abrigo
-			-Personalidade personalidade_animal
-			-IdPessoa adotante nullable
+			-IdPessoa id_adotante nullable
+			-SaudeAnimal saude_animal nullable
 			String nome_animal
 			String idade_animal
 			String especie
 			String raca
 			String porte
-			Boolean foi_adotado 
+			List<String> tags_personalidade
+			Boolean foi_adotado;
 			
+			Repository AnimalRepository{
+				@Animal obter(@Animal id_animal); 
+				@Animal remover(@Animal id_animal); 
+				List<@Animal> listarAnimais;  
+			} 
 		}
 		
 		ValueObject IdAnimal {
 			int id_animal
 		}
-		
-		ValueObject Personalidade {
-			String personalidade
-			String comportamento
-		}
-		
-		ValueObject Adocao {
-			// precisa ter id a adoção?
-			-IdPessoa adotante
-			
-			// precisa ter o id do animal???
-			-IdAnimal id_animal 
-			Date data_adocao
+		ValueObject SaudeAnimal {
+			boolean vacina_raiva
+			boolean vermifugado
+			boolean castrado
 		}
 	}
 	
 	
 	
+	
 	Aggregate Pessoa {
+		Service CRUDPessoa{
+			void inserirPessoa (@IdPessoa id, @Endereco end, @Contato cont, 
+				String nome, String cpf, String idade, Date data
+			);
+			void editarPessoa (@IdPessoa id, @Endereco end, @Contato cont, 
+				String nome, String cpf, String idade, Date data
+			);
+			
+		}
+		Service PersonalidadeDesejada{
+			void inserirPersonalidades (@IdPessoa id, List<@Personalidade> tags);
+			void removerPersonalidades (@IdPessoa id, List<@Personalidade> tags);
+			void verificarCompatibilidade(@IdPessoa id_pessoa, List<@Personalidade> tags_pessoa,
+				@IdAnimal id_animal, List<@Personalidade> tags_animal
+			);
+		}
+	
+		
 		Entity Pessoa {
 			aggregateRoot
 			
 			-IdPessoa id_pessoa
 			-Endereco endereco_pessoa
 			-Contato contato_pessoa
+			-List<IdAnimal> animais_adotados
 			String nome_pessoa
 			String cpf
-			String idade_pessoa
-			-List<IdAnimal> animais_adotados
+			Date data_pessoa
+			-List<Personalidade> tags_personalidade_desejada
 			
-			
+			def void inserirPessoa (@Endereco end, @Contato cont, 
+				String nome, String cpf, String idade, Date data
+			);
+			def void editarPessoa (@Endereco end, @Contato cont, 
+				String nome, String cpf, String idade, Date data
+			);
+			def void inserirPersonalidades (List<@Personalidade> tags);
+			def void RemoverPersonalidades (List<@Personalidade> tags);
+			def void verificarCompatibilidade(@IdPessoa id_pessoa, List<@Personalidade> tags_pessoa,
+				@IdAnimal id_animal, List<@Personalidade> tags_animal
+			);
+		
+			Repository PessoaRepository{
+				@Pessoa obter (@Pessoa id_pessoa); 
+				@Pessoa remover (@Pessoa id_pessoa); 
+				List<@Pessoa> listarUsuarios; 
+			}
 		}
 		
 		ValueObject IdPessoa {
 			int id_pessoa
 		}
+		ValueObject Personalidade{
+			List<Boolean> tags_personalidade
+		}
+	
 	}
 }
 

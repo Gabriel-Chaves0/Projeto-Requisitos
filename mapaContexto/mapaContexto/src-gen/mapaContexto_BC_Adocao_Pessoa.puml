@@ -6,17 +6,36 @@ package "'Pessoa' Aggregate" <<Rectangle>> {
 	class Pessoa <<(A,#fffab8) Aggregate Root>> {
 		String nome_pessoa
 		String cpf
-		String idade_pessoa
+		Date data_pessoa
 		IdPessoa id_pessoa
 		Endereco endereco_pessoa
 		Contato contato_pessoa
 		List<IdAnimal> animais_adotados
+		List<Personalidade> tags_personalidade_desejada
+		void inserirPessoa(Endereco end, Contato cont, String nome, String cpf, String idade, Date data)
+		void editarPessoa(Endereco end, Contato cont, String nome, String cpf, String idade, Date data)
+		void inserirPersonalidades(List<Personalidade> tags)
+		void RemoverPersonalidades(List<Personalidade> tags)
+		void verificarCompatibilidade(IdPessoa id_pessoa, List<Personalidade> tags_pessoa, IdAnimal id_animal, List<Personalidade> tags_animal)
 	}
 	class IdPessoa <<(V,DarkSeaGreen) Value Object>> {
 		int id_pessoa
 	}
+	class Personalidade <<(V,DarkSeaGreen) Value Object>> {
+		List<Boolean> tags_personalidade
+	}
+	class CRUDPessoa <<(S,DarkSeaGreen) Service>> {
+		void inserirPessoa(IdPessoa id, Endereco end, Contato cont, String nome, String cpf, String idade, Date data)
+		void editarPessoa(IdPessoa id, Endereco end, Contato cont, String nome, String cpf, String idade, Date data)
+	}
+	class PersonalidadeDesejada <<(S,DarkSeaGreen) Service>> {
+		void inserirPersonalidades(IdPessoa id, List<Personalidade> tags)
+		void removerPersonalidades(IdPessoa id, List<Personalidade> tags)
+		void verificarCompatibilidade(IdPessoa id_pessoa, List<Personalidade> tags_pessoa, IdAnimal id_animal, List<Personalidade> tags_animal)
+	}
 }
 Pessoa --> IdPessoa : id_pessoa
+Pessoa "1" *--> "*" Personalidade : tags_personalidade_desejada
 
 
 @enduml

@@ -9,26 +9,24 @@ package "'Animal' Aggregate" <<Rectangle>> {
 		String especie
 		String raca
 		String porte
+		List<String> tags_personalidade
 		Boolean foi_adotado
 		IdAnimal id_animal
 		IdAbrigo id_abrigo
-		Personalidade personalidade_animal
-		IdPessoa[0..1] adotante
+		IdPessoa[0..1] id_adotante
+		SaudeAnimal[0..1] saude_animal
 	}
 	class IdAnimal <<(V,DarkSeaGreen) Value Object>> {
 		int id_animal
 	}
-	class Personalidade <<(V,DarkSeaGreen) Value Object>> {
-		String personalidade
-		String comportamento
-	}
-	class Adocao <<(V,DarkSeaGreen) Value Object>> {
-		Date data_adocao
-		IdPessoa adotante
+	class SaudeAnimal <<(V,DarkSeaGreen) Value Object>> {
+		boolean vacina_raiva
+		boolean vermifugado
+		boolean castrado
 	}
 }
+Animal "1" --> "0..1" SaudeAnimal : saude_animal
 Animal --> IdAnimal : id_animal
-Animal --> Personalidade : personalidade_animal
 
 
 @enduml

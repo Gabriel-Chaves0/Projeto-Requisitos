@@ -8,7 +8,17 @@ package "'Abrigo' Aggregate" <<Rectangle>> {
 		IdAbrigo id_abrigo
 		Endereco endereco_abrigo
 		Contato contato_abrigo
+		List<Avaliacao> avaliacoes_abrigo
 		List<IdAnimal> animais_abrigados
+		void inserirAbrigo(Endereco end, Contato cont, String nome)
+		void editarAbrigo(Endereco end, Contato cont, String nome)
+		void inserirAnimal(IdAnimal id_animal, String nome, String idade_animal, String especie, String raca, String porte)
+		void editarAnimal(IdAnimal id_anim, String nome, String idade_animal, String especie, String raca, String porte)
+		void inserirPersonalidades(IdAnimal id_anim, List<Personalidade> tags)
+		void removerPersonalidades(IdAnimal id_anim, List<Personalidade> tags)
+		void dadosAnimal(IdAnimal id_anim)
+		void adotarAnimal(IdAnimal id_anim, IdPessoa id_pessoa)
+		Boolean mudarStatusAnimal(IdAnimal id_anim, Boolean foi_adotado)
 	}
 	class IdAbrigo <<(V,DarkSeaGreen) Value Object>> {
 		int id_abrigo
@@ -25,10 +35,34 @@ package "'Abrigo' Aggregate" <<Rectangle>> {
 		String telefone
 		String email_contato
 	}
+	class Avaliacao <<(V,DarkSeaGreen) Value Object>> {
+		Date data_avaliacao
+		int nota
+		String[0..1] descricao
+		IdPessoa avaliador
+	}
+	class CRUDAbrigo <<(S,DarkSeaGreen) Service>> {
+		void inserirAbrigo(IdAbrigo id, Endereco end, Contato cont, String nome)
+		void editarAbrigo(IdAbrigo id, Endereco end, Contato cont, String nome)
+	}
+	class CRUDAnimal <<(S,DarkSeaGreen) Service>> {
+		void inserirAnimal(IdAnimal id_anim, IdAbrigo id_abr, String nome, String idade_animal, String especie, String raca, String porte)
+		void editarAnimal(IdAnimal id_anim, IdAbrigo id_abr, String nome, String idade_animal, String especie, String raca, String porte)
+		void dadosAnimal(IdAnimal id)
+	}
+	class PersonalidadeAnimal <<(S,DarkSeaGreen) Service>> {
+		void inserirPersonalidades(IdAnimal id, List<Personalidade> tags)
+		void removerPersonalidades(IdAnimal id, List<Personalidade> tags)
+	}
+	class StatusAnimal <<(S,DarkSeaGreen) Service>> {
+		void adotarAnimal(IdAnimal id_anim, IdPessoa id_pessoa)
+		Boolean mudarStatusAnimal(IdAnimal id_anim, Boolean foi_adotado)
+	}
 }
 Abrigo --> IdAbrigo : id_abrigo
 Abrigo --> Endereco : endereco_abrigo
 Abrigo --> Contato : contato_abrigo
+Abrigo "1" *--> "*" Avaliacao : avaliacoes_abrigo
 
 
 @enduml

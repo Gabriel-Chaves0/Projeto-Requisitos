@@ -11,6 +11,8 @@
     <modules>
         <module>persistencia</module>
         <module>dominio-bdd</module>
+        <module>dominio-bdd</module>
+        <module>dominio</module>
     </modules>
 
 

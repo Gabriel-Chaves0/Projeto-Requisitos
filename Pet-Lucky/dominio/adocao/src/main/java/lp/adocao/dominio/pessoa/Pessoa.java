@@ -1,7 +1,9 @@
 package lp.adocao.dominio.pessoa;
 
+import lp.adocao.dominio.animal.IdAnimal;
 import lp.adocao.dominio.comuns.Contato;
 import lp.adocao.dominio.comuns.Endereco;
+import lp.adocao.dominio.comuns.Personalidade;
 import org.jmolecules.ddd.annotation.AggregateRoot;
 import org.jmolecules.ddd.annotation.Identity;
 
@@ -15,7 +17,7 @@ public class Pessoa {
     private final IdPessoa idPessoa;
     private Endereco enderecoPessoa;
     private Contato contatoPessoa;
-    //private List<IdAnimal> animaisAdotados; TODO: implementar essa funcionalidade
+    private List<IdAnimal> animaisAdotados;
     private String nomePessoa;
     private String cpf;
     private Date dataPessoa;

@@ -1,4 +1,4 @@
-package lp.adocao.dominio.pessoa;
+package lp.adocao.dominio.comuns;
 
 import org.jmolecules.ddd.annotation.ValueObject;
 

@@ -12,9 +12,7 @@
     <artifactId>dominio</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>pessoa</module>
-        <module>abrigo</module>
-        <module>animal</module>
+        <module>adocao</module>
     </modules>
 
     <properties>

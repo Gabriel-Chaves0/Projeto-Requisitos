@@ -1,6 +1,6 @@
 package lp.adocao.dominio.pessoa;
 
-public interface PessoaRepositorio {
+public interface IPessoaRepositorio {
     void salvar(Pessoa pessoa);
     void editar(Pessoa pessoa);
     Pessoa obterPorId(IdPessoa idPessoa);

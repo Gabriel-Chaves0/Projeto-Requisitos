@@ -14,8 +14,9 @@ public class Voluntario extends Pessoa {
 
     private List<Abrigo> abrigosAssociados;
 
-    public Voluntario(IdPessoa idPessoa, Endereco endereco, Contato contato, String nome, String cpf, Date data, List<Personalidade> personalidades) {
+    public Voluntario(IdPessoa idPessoa, Endereco endereco, Contato contato, String nome, String cpf, Date data, List<Personalidade> personalidades, List<Abrigo> abrigosAssociados) {
         super(idPessoa, endereco, contato, nome, cpf, data, personalidades);
+        this.abrigosAssociados = abrigosAssociados;
     }
 
     public Voluntario(Pessoa pessoa, List<Abrigo> abrigosAssociados) {

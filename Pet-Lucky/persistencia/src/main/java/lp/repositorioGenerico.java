@@ -40,7 +40,7 @@ public class repositorioGenerico implements IAbrigoRepositorio, IAnimalResposito
 
     @Override
     public List<Abrigo> listarAbrigos() {
-        return List.of();
+        return List.copyOf(abrigos.values());
     }
 
     Map<IdAnimal, Animal> animais = new HashMap<>();

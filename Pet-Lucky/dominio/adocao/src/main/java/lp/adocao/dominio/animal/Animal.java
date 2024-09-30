@@ -15,8 +15,8 @@ public class Animal {
     @Identity
     private final IdAnimal idAnimal;
     private IdAbrigo idAbrigo;
-    private IdPessoa idAdotante;
-    private SaudeAnimal saudeAnimal;
+    private IdPessoa idAdotante = null;
+    private SaudeAnimal saudeAnimal = null;
     private String nomeAnimal;
     private String idadeAnimal;
     private String especie;
@@ -105,5 +105,9 @@ public class Animal {
 
     public void setNomeAnimal(String nomeAnimal) {
         this.nomeAnimal = nomeAnimal;
+    }
+
+    public IdAbrigo getIdAbrigo() {
+        return idAbrigo;
     }
 }

@@ -1,0 +1,24 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'Voluntario' Aggregate" <<Rectangle>> {
+	class Voluntario <<(A,#fffab8) Aggregate Root>> {
+		List<Abrigo> abrigosAssociados
+		void associarAbrigo(Abrigo abrigo)
+		void desassociarAbrigo(Abrigo abrigo)
+		List<Abrigo> getAbrigosAssociados()
+	}
+	class InfoAbrigo <<(S,DarkSeaGreen) Service>> {
+		void associarAbrigo(Abrigo abrigo)
+		void desassociarAbrigo(Abrigo abrigo)
+		List<Abrigo> getAbrigosAssociados()
+	}
+}
+Voluntario --|> Pessoa
+legend left
+  This bounded context implements the subdomain 'Voluntariado'.
+end legend
+
+
+@enduml

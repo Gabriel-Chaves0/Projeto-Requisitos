@@ -5,64 +5,45 @@ skinparam componentStyle uml2
 package "'Abrigo' Aggregate" <<Rectangle>> {
 	class Abrigo <<(A,#fffab8) Aggregate Root>> {
 		String nome_abrigo
+		int capacidadeAbrigo
 		IdAbrigo id_abrigo
 		Endereco endereco_abrigo
 		Contato contato_abrigo
-		List<Avaliacao> avaliacoes_abrigo
 		List<IdAnimal> animais_abrigados
-		void inserirAbrigo(Endereco end, Contato cont, String nome)
-		void editarAbrigo(Endereco end, Contato cont, String nome)
-		void inserirAnimal(IdAnimal id_animal, String nome, String idade_animal, String especie, String raca, String porte)
-		void editarAnimal(IdAnimal id_anim, String nome, String idade_animal, String especie, String raca, String porte)
-		void inserirPersonalidades(IdAnimal id_anim, List<Personalidade> tags)
-		void removerPersonalidades(IdAnimal id_anim, List<Personalidade> tags)
-		void dadosAnimal(IdAnimal id_anim)
-		void adotarAnimal(IdAnimal id_anim, IdPessoa id_pessoa)
-		Boolean mudarStatusAnimal(IdAnimal id_anim, Boolean foi_adotado)
+		List<IdPessoa> funcionariosAbrigo
+		boolean isMaxCapacity()
+		void setNomeAbrigo(String nomeAbrigo)
+		String getNomeAbrigo()
+		Contato getContatoAbrigo()
+		void setContatoAbrigo(Contato contatoAbrigo)
+		int getCapacidadeAbrigo()
+		void setCapacidadeAbrigo(int capacidadeAbrigo)
+		List<Pessoa> getFuncionariosAbrigo()
+		List<Animal> getAnimaisAbrigo()
 	}
 	class IdAbrigo <<(V,DarkSeaGreen) Value Object>> {
 		int id_abrigo
+		int getId()
 	}
 	class Endereco <<(V,DarkSeaGreen) Value Object>> {
-		String cep
-		String estado
 		String cidade
 		String rua
-		int numero
-		String[0..1] complemento
+		String getRua()
+		String getCidade()
 	}
 	class Contato <<(V,DarkSeaGreen) Value Object>> {
 		String telefone
 		String email_contato
+		String getEmail()
+		String getTelefone()
 	}
-	class Avaliacao <<(V,DarkSeaGreen) Value Object>> {
-		Date data_avaliacao
-		int nota
-		String[0..1] descricao
-		IdPessoa avaliador
-	}
-	class CRUDAbrigo <<(S,DarkSeaGreen) Service>> {
-		void inserirAbrigo(IdAbrigo id, Endereco end, Contato cont, String nome)
-		void editarAbrigo(IdAbrigo id, Endereco end, Contato cont, String nome)
-	}
-	class CRUDAnimal <<(S,DarkSeaGreen) Service>> {
-		void inserirAnimal(IdAnimal id_anim, IdAbrigo id_abr, String nome, String idade_animal, String especie, String raca, String porte)
-		void editarAnimal(IdAnimal id_anim, IdAbrigo id_abr, String nome, String idade_animal, String especie, String raca, String porte)
-		void dadosAnimal(IdAnimal id)
-	}
-	class PersonalidadeAnimal <<(S,DarkSeaGreen) Service>> {
-		void inserirPersonalidades(IdAnimal id, List<Personalidade> tags)
-		void removerPersonalidades(IdAnimal id, List<Personalidade> tags)
-	}
-	class StatusAnimal <<(S,DarkSeaGreen) Service>> {
-		void adotarAnimal(IdAnimal id_anim, IdPessoa id_pessoa)
-		Boolean mudarStatusAnimal(IdAnimal id_anim, Boolean foi_adotado)
+	class GetAnimais <<(S,DarkSeaGreen) Service>> {
+		List<Animal> getAnimaisAbrigo()
 	}
 }
 Abrigo --> IdAbrigo : id_abrigo
 Abrigo --> Endereco : endereco_abrigo
 Abrigo --> Contato : contato_abrigo
-Abrigo "1" *--> "*" Avaliacao : avaliacoes_abrigo
 
 
 @enduml

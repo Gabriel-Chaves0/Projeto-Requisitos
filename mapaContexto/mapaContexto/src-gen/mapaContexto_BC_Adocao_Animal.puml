@@ -9,20 +9,49 @@ package "'Animal' Aggregate" <<Rectangle>> {
 		String especie
 		String raca
 		String porte
-		List<String> tags_personalidade
+		String sexo
 		Boolean foi_adotado
 		IdAnimal id_animal
 		IdAbrigo id_abrigo
 		IdPessoa[0..1] id_adotante
 		SaudeAnimal[0..1] saude_animal
+		IdAnimal getIdAnimal()
+		String getNomeAnimal()
+		void setNomeAnimal(String nomeAnimal)
+		String getIdadeAnimal()
+		String getEspecie()
+		String getRaca()
+		String getPorte()
+		String getSexo()
+		Boolean getAdotado()
+		void setAdotado(Boolean adotado)
+		SaudeAnimal getSaudeAnimal()
+		void setSaudeAnimal(SaudeAnimal saudeAnimal)
+		IdPessoa getIdAdotante()
+		void setIdAdotante(IdPessoa idAdotante)
+		IdAbrigo getIdAbrigo()
 	}
 	class IdAnimal <<(V,DarkSeaGreen) Value Object>> {
 		int id_animal
+		int getId()
 	}
 	class SaudeAnimal <<(V,DarkSeaGreen) Value Object>> {
 		boolean vacina_raiva
 		boolean vermifugado
 		boolean castrado
+		boolean isVacinaRaiva()
+		void setVacinaRaiva(boolean vacinaRaiva)
+		boolean isVermifugado()
+		void setVermifugado(boolean vermifugado)
+		boolean isCastrado()
+		void setCastrado(boolean castrado)
+	}
+	class InfoAdotante <<(S,DarkSeaGreen) Service>> {
+		IdPessoa getIdAdotante()
+		void setIdAdotante(IdPessoa idAdotante)
+	}
+	class GetAbrigo <<(S,DarkSeaGreen) Service>> {
+		IdAbrigo getIdAbrigo()
 	}
 }
 Animal "1" --> "0..1" SaudeAnimal : saude_animal

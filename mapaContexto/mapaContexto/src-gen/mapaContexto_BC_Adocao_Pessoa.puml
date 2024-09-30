@@ -11,31 +11,40 @@ package "'Pessoa' Aggregate" <<Rectangle>> {
 		Endereco endereco_pessoa
 		Contato contato_pessoa
 		List<IdAnimal> animais_adotados
-		List<Personalidade> tags_personalidade_desejada
-		void inserirPessoa(Endereco end, Contato cont, String nome, String cpf, String idade, Date data)
-		void editarPessoa(Endereco end, Contato cont, String nome, String cpf, String idade, Date data)
-		void inserirPersonalidades(List<Personalidade> tags)
-		void RemoverPersonalidades(List<Personalidade> tags)
-		void verificarCompatibilidade(IdPessoa id_pessoa, List<Personalidade> tags_pessoa, IdAnimal id_animal, List<Personalidade> tags_animal)
+		Preferencias preferencias
+		Preferencias getPreferencias()
+		void setPreferencias(Preferencias preferencias)
+		IdPessoa getIdPessoa()
+		Endereco getEnderecoPessoa()
+		void setEnderecoPessoa(Endereco enderecoPessoa)
+		Contato getContatoPessoa()
+		void setContatoPessoa(Contato contatoPessoa)
+		String getNomePessoa()
+		void setNomePessoa(String nomePessoa)
+		String getCpf()
+		Date getDataPessoa()
 	}
 	class IdPessoa <<(V,DarkSeaGreen) Value Object>> {
 		int id_pessoa
+		int getId()
 	}
-	class Personalidade <<(V,DarkSeaGreen) Value Object>> {
-		List<Boolean> tags_personalidade
-	}
-	class CRUDPessoa <<(S,DarkSeaGreen) Service>> {
-		void inserirPessoa(IdPessoa id, Endereco end, Contato cont, String nome, String cpf, String idade, Date data)
-		void editarPessoa(IdPessoa id, Endereco end, Contato cont, String nome, String cpf, String idade, Date data)
-	}
-	class PersonalidadeDesejada <<(S,DarkSeaGreen) Service>> {
-		void inserirPersonalidades(IdPessoa id, List<Personalidade> tags)
-		void removerPersonalidades(IdPessoa id, List<Personalidade> tags)
-		void verificarCompatibilidade(IdPessoa id_pessoa, List<Personalidade> tags_pessoa, IdAnimal id_animal, List<Personalidade> tags_animal)
+	class Preferencias <<(V,DarkSeaGreen) Value Object>> {
+		List<String> especies
+		List<String> racas
+		List<String> portes
+		List<String> sexos
+		List<String> getEspecies()
+		void setEspecies(List<String> especies)
+		List<String> getRacas()
+		void setRacas(List<String> racas)
+		List<String> getPortes()
+		void setPortes(List<String> portes)
+		List<String> getSexos()
+		void setSexos(List<String> sexos)
 	}
 }
 Pessoa --> IdPessoa : id_pessoa
-Pessoa "1" *--> "*" Personalidade : tags_personalidade_desejada
+Pessoa --> Preferencias : preferencias
 
 
 @enduml

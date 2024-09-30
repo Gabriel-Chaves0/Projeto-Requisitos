@@ -5,58 +5,40 @@ skinparam componentStyle uml2
 package "'Abrigo' Aggregate" <<Rectangle>> {
 	class Abrigo <<(A,#fffab8) Aggregate Root>> {
 		String nome_abrigo
+		int capacidadeAbrigo
 		IdAbrigo id_abrigo
 		Endereco endereco_abrigo
 		Contato contato_abrigo
-		List<Avaliacao> avaliacoes_abrigo
 		List<IdAnimal> animais_abrigados
-		void inserirAbrigo(Endereco end, Contato cont, String nome)
-		void editarAbrigo(Endereco end, Contato cont, String nome)
-		void inserirAnimal(IdAnimal id_animal, String nome, String idade_animal, String especie, String raca, String porte)
-		void editarAnimal(IdAnimal id_anim, String nome, String idade_animal, String especie, String raca, String porte)
-		void inserirPersonalidades(IdAnimal id_anim, List<Personalidade> tags)
-		void removerPersonalidades(IdAnimal id_anim, List<Personalidade> tags)
-		void dadosAnimal(IdAnimal id_anim)
-		void adotarAnimal(IdAnimal id_anim, IdPessoa id_pessoa)
-		Boolean mudarStatusAnimal(IdAnimal id_anim, Boolean foi_adotado)
+		List<IdPessoa> funcionariosAbrigo
+		boolean isMaxCapacity()
+		void setNomeAbrigo(String nomeAbrigo)
+		String getNomeAbrigo()
+		Contato getContatoAbrigo()
+		void setContatoAbrigo(Contato contatoAbrigo)
+		int getCapacidadeAbrigo()
+		void setCapacidadeAbrigo(int capacidadeAbrigo)
+		List<Pessoa> getFuncionariosAbrigo()
+		List<Animal> getAnimaisAbrigo()
 	}
 	class IdAbrigo <<(V,DarkSeaGreen) Value Object>> {
 		int id_abrigo
+		int getId()
 	}
 	class Endereco <<(V,DarkSeaGreen) Value Object>> {
-		String cep
-		String estado
 		String cidade
 		String rua
-		int numero
-		String[0..1] complemento
+		String getRua()
+		String getCidade()
 	}
 	class Contato <<(V,DarkSeaGreen) Value Object>> {
 		String telefone
 		String email_contato
+		String getEmail()
+		String getTelefone()
 	}
-	class Avaliacao <<(V,DarkSeaGreen) Value Object>> {
-		Date data_avaliacao
-		int nota
-		String[0..1] descricao
-		IdPessoa avaliador
-	}
-	class CRUDAbrigo <<(S,DarkSeaGreen) Service>> {
-		void inserirAbrigo(IdAbrigo id, Endereco end, Contato cont, String nome)
-		void editarAbrigo(IdAbrigo id, Endereco end, Contato cont, String nome)
-	}
-	class CRUDAnimal <<(S,DarkSeaGreen) Service>> {
-		void inserirAnimal(IdAnimal id_anim, IdAbrigo id_abr, String nome, String idade_animal, String especie, String raca, String porte)
-		void editarAnimal(IdAnimal id_anim, IdAbrigo id_abr, String nome, String idade_animal, String especie, String raca, String porte)
-		void dadosAnimal(IdAnimal id)
-	}
-	class PersonalidadeAnimal <<(S,DarkSeaGreen) Service>> {
-		void inserirPersonalidades(IdAnimal id, List<Personalidade> tags)
-		void removerPersonalidades(IdAnimal id, List<Personalidade> tags)
-	}
-	class StatusAnimal <<(S,DarkSeaGreen) Service>> {
-		void adotarAnimal(IdAnimal id_anim, IdPessoa id_pessoa)
-		Boolean mudarStatusAnimal(IdAnimal id_anim, Boolean foi_adotado)
+	class GetAnimais <<(S,DarkSeaGreen) Service>> {
+		List<Animal> getAnimaisAbrigo()
 	}
 }
 package "'Animal' Aggregate" <<Rectangle>> {
@@ -66,20 +48,49 @@ package "'Animal' Aggregate" <<Rectangle>> {
 		String especie
 		String raca
 		String porte
-		List<String> tags_personalidade
+		String sexo
 		Boolean foi_adotado
 		IdAnimal id_animal
 		IdAbrigo id_abrigo
 		IdPessoa[0..1] id_adotante
 		SaudeAnimal[0..1] saude_animal
+		IdAnimal getIdAnimal()
+		String getNomeAnimal()
+		void setNomeAnimal(String nomeAnimal)
+		String getIdadeAnimal()
+		String getEspecie()
+		String getRaca()
+		String getPorte()
+		String getSexo()
+		Boolean getAdotado()
+		void setAdotado(Boolean adotado)
+		SaudeAnimal getSaudeAnimal()
+		void setSaudeAnimal(SaudeAnimal saudeAnimal)
+		IdPessoa getIdAdotante()
+		void setIdAdotante(IdPessoa idAdotante)
+		IdAbrigo getIdAbrigo()
 	}
 	class IdAnimal <<(V,DarkSeaGreen) Value Object>> {
 		int id_animal
+		int getId()
 	}
 	class SaudeAnimal <<(V,DarkSeaGreen) Value Object>> {
 		boolean vacina_raiva
 		boolean vermifugado
 		boolean castrado
+		boolean isVacinaRaiva()
+		void setVacinaRaiva(boolean vacinaRaiva)
+		boolean isVermifugado()
+		void setVermifugado(boolean vermifugado)
+		boolean isCastrado()
+		void setCastrado(boolean castrado)
+	}
+	class InfoAdotante <<(S,DarkSeaGreen) Service>> {
+		IdPessoa getIdAdotante()
+		void setIdAdotante(IdPessoa idAdotante)
+	}
+	class GetAbrigo <<(S,DarkSeaGreen) Service>> {
+		IdAbrigo getIdAbrigo()
 	}
 }
 package "'Pessoa' Aggregate" <<Rectangle>> {
@@ -91,27 +102,36 @@ package "'Pessoa' Aggregate" <<Rectangle>> {
 		Endereco endereco_pessoa
 		Contato contato_pessoa
 		List<IdAnimal> animais_adotados
-		List<Personalidade> tags_personalidade_desejada
-		void inserirPessoa(Endereco end, Contato cont, String nome, String cpf, String idade, Date data)
-		void editarPessoa(Endereco end, Contato cont, String nome, String cpf, String idade, Date data)
-		void inserirPersonalidades(List<Personalidade> tags)
-		void RemoverPersonalidades(List<Personalidade> tags)
-		void verificarCompatibilidade(IdPessoa id_pessoa, List<Personalidade> tags_pessoa, IdAnimal id_animal, List<Personalidade> tags_animal)
+		Preferencias preferencias
+		Preferencias getPreferencias()
+		void setPreferencias(Preferencias preferencias)
+		IdPessoa getIdPessoa()
+		Endereco getEnderecoPessoa()
+		void setEnderecoPessoa(Endereco enderecoPessoa)
+		Contato getContatoPessoa()
+		void setContatoPessoa(Contato contatoPessoa)
+		String getNomePessoa()
+		void setNomePessoa(String nomePessoa)
+		String getCpf()
+		Date getDataPessoa()
 	}
 	class IdPessoa <<(V,DarkSeaGreen) Value Object>> {
 		int id_pessoa
+		int getId()
 	}
-	class Personalidade <<(V,DarkSeaGreen) Value Object>> {
-		List<Boolean> tags_personalidade
-	}
-	class CRUDPessoa <<(S,DarkSeaGreen) Service>> {
-		void inserirPessoa(IdPessoa id, Endereco end, Contato cont, String nome, String cpf, String idade, Date data)
-		void editarPessoa(IdPessoa id, Endereco end, Contato cont, String nome, String cpf, String idade, Date data)
-	}
-	class PersonalidadeDesejada <<(S,DarkSeaGreen) Service>> {
-		void inserirPersonalidades(IdPessoa id, List<Personalidade> tags)
-		void removerPersonalidades(IdPessoa id, List<Personalidade> tags)
-		void verificarCompatibilidade(IdPessoa id_pessoa, List<Personalidade> tags_pessoa, IdAnimal id_animal, List<Personalidade> tags_animal)
+	class Preferencias <<(V,DarkSeaGreen) Value Object>> {
+		List<String> especies
+		List<String> racas
+		List<String> portes
+		List<String> sexos
+		List<String> getEspecies()
+		void setEspecies(List<String> especies)
+		List<String> getRacas()
+		void setRacas(List<String> racas)
+		List<String> getPortes()
+		void setPortes(List<String> portes)
+		List<String> getSexos()
+		void setSexos(List<String> sexos)
 	}
 }
 Pessoa --> IdPessoa : id_pessoa
@@ -120,15 +140,14 @@ Pessoa --> Contato : contato_pessoa
 Abrigo "1" o--> "*" IdAnimal : animais_abrigados
 Abrigo --> Endereco : endereco_abrigo
 Abrigo --> Contato : contato_abrigo
-Abrigo "1" *--> "*" Avaliacao : avaliacoes_abrigo
+Abrigo "1" o--> "*" IdPessoa : funcionariosAbrigo
 Abrigo --> IdAbrigo : id_abrigo
 Animal "1" --> "0..1" SaudeAnimal : saude_animal
 Pessoa "1" o--> "*" IdAnimal : animais_adotados
 Animal "1" --> "0..1" IdPessoa : id_adotante
-Avaliacao --> IdPessoa : avaliador
 Animal --> IdAbrigo : id_abrigo
 Pessoa --> Endereco : endereco_pessoa
-Pessoa "1" *--> "*" Personalidade : tags_personalidade_desejada
+Pessoa --> Preferencias : preferencias
 legend left
   This bounded context implements the subdomain 'Adocao'.
 end legend

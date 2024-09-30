@@ -1,5 +1,6 @@
 package lp.adocao.dominio.animal;
 
+import lp.adocao.dominio.abrigo.IdAbrigo;
 import lp.adocao.dominio.pessoa.IdPessoa;
 import lp.adocao.dominio.comuns.Personalidade;
 import org.jmolecules.ddd.annotation.AggregateRoot;
@@ -13,7 +14,7 @@ public class Animal {
 
     @Identity
     private final IdAnimal idAnimal;
-//    private IdAbrigo idAbrigo; TODO: implementar essa funcionalidade
+    private IdAbrigo idAbrigo;
     private IdPessoa idAdotante;
     private SaudeAnimal saudeAnimal;
     private String nomeAnimal;
@@ -25,8 +26,9 @@ public class Animal {
     private List<Personalidade> tagsPersonalidade;
     private Boolean adotado;
 
-    public Animal(IdAnimal idAnimal, @Nullable IdPessoa idAdotante, @Nullable SaudeAnimal saudeAnimal, String nomeAnimal, String idadeAnimal, String especie, String raca, String porte, String sexo) {
+    public Animal(IdAnimal idAnimal, IdAbrigo idAbrigo, @Nullable IdPessoa idAdotante, @Nullable SaudeAnimal saudeAnimal, String nomeAnimal, String idadeAnimal, String especie, String raca, String porte, String sexo) {
         this.idAnimal = idAnimal;
+        this.idAbrigo = idAbrigo;
         this.idAdotante = idAdotante;
         this.saudeAnimal = saudeAnimal;
         this.nomeAnimal = nomeAnimal;

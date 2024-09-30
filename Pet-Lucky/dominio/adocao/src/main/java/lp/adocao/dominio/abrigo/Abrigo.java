@@ -1,7 +1,9 @@
 package lp.adocao.dominio.abrigo;
 
+import lp.adocao.dominio.animal.Animal;
 import lp.adocao.dominio.comuns.Contato;
 import lp.adocao.dominio.comuns.Endereco;
+import lp.adocao.dominio.pessoa.Pessoa;
 import org.jmolecules.ddd.annotation.AggregateRoot;
 import org.jmolecules.ddd.annotation.Identity;
 

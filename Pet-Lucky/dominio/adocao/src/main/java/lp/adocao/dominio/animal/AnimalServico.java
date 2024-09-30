@@ -4,9 +4,9 @@ import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
 public class AnimalServico {
-    private final AnimalRespositorio animalRespositorio;
+    private final IAnimalRespositorio animalRespositorio;
 
-    public AnimalServico(AnimalRespositorio animalRespositorio) {
+    public AnimalServico(IAnimalRespositorio animalRespositorio) {
         this.animalRespositorio = animalRespositorio;
     }
 

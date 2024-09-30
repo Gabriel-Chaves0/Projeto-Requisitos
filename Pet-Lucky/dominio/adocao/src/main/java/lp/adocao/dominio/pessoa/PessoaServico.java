@@ -4,9 +4,9 @@ import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
 public class PessoaServico {
-    private final PessoaRepositorio pessoaRepositorio;
+    private final IPessoaRepositorio pessoaRepositorio;
 
-    public PessoaServico(PessoaRepositorio pessoaRepositorio) {
+    public PessoaServico(IPessoaRepositorio pessoaRepositorio) {
         this.pessoaRepositorio = pessoaRepositorio;
     }
 

@@ -4,6 +4,7 @@ import lp.adocao.dominio.abrigo.Abrigo;
 import lp.adocao.dominio.comuns.Contato;
 import lp.adocao.dominio.comuns.Endereco;
 import lp.adocao.dominio.comuns.Personalidade;
+import lp.adocao.dominio.comuns.Preferencias;
 import lp.adocao.dominio.pessoa.IdPessoa;
 import lp.adocao.dominio.pessoa.Pessoa;
 
@@ -14,8 +15,8 @@ public class Voluntario extends Pessoa {
 
     private List<Abrigo> abrigosAssociados;
 
-    public Voluntario(IdPessoa idPessoa, Endereco endereco, Contato contato, String nome, String cpf, Date data, List<Personalidade> personalidades, List<Abrigo> abrigosAssociados) {
-        super(idPessoa, endereco, contato, nome, cpf, data, personalidades);
+    public Voluntario(IdPessoa idPessoa, Endereco endereco, Contato contato, String nome, String cpf, Date data, Preferencias preferencias, List<Abrigo> abrigosAssociados) {
+        super(idPessoa, endereco, contato, nome, cpf, data, preferencias);
         this.abrigosAssociados = abrigosAssociados;
     }
 

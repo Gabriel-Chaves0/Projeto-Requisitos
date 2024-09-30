@@ -3,7 +3,6 @@ package lb.voluntariado.dominio.voluntario;
 import lp.adocao.dominio.abrigo.Abrigo;
 import lp.adocao.dominio.comuns.Contato;
 import lp.adocao.dominio.comuns.Endereco;
-import lp.adocao.dominio.comuns.Personalidade;
 import lp.adocao.dominio.comuns.Preferencias;
 import lp.adocao.dominio.pessoa.IdPessoa;
 import lp.adocao.dominio.pessoa.Pessoa;

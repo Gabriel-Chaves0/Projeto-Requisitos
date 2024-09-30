@@ -1,4 +1,4 @@
-package lb.voluntariado.dominio.voluntario;
+package lp.voluntariado.dominio.voluntario;
 
 import lp.adocao.dominio.pessoa.IdPessoa;
 
@@ -26,7 +26,7 @@ public class VoluntarioServico {
     public Voluntario obterPorId(IdPessoa idVoluntario) {
         notNull(idVoluntario, "Id do voluntario não pode ser nulo");
 
-        return voluntarioRepositorio.obterPorId(idVoluntario);
+        return voluntarioRepositorio.obterVoluntarioPorId(idVoluntario);
     }
 
 

@@ -8,4 +8,5 @@ public interface IAbrigoRepositorio {
     void remover(IdAbrigo idAbrigo);
     Abrigo obterPorId(IdAbrigo idAbrigo);
     List<Abrigo> listarAbrigos();
+    Abrigo obterPorNome(String nome);
 }

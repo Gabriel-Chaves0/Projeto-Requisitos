@@ -8,12 +8,14 @@ import lp.adocao.dominio.animal.IdAnimal;
 import lp.adocao.dominio.pessoa.IPessoaRepositorio;
 import lp.adocao.dominio.pessoa.IdPessoa;
 import lp.adocao.dominio.pessoa.Pessoa;
+import lp.voluntariado.dominio.voluntario.Voluntario;
+import lp.voluntariado.dominio.voluntario.IVoluntarioRepositorio;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class repositorioGenerico implements IAbrigoRepositorio, IAnimalRespositorio, IPessoaRepositorio {
+public class repositorioGenerico implements IAbrigoRepositorio, IAnimalRespositorio, IPessoaRepositorio, IVoluntarioRepositorio {
 
     private Map<IdAbrigo, Abrigo> abrigos = new HashMap<>();
 
@@ -77,8 +79,42 @@ public class repositorioGenerico implements IAbrigoRepositorio, IAnimalResposito
         pessoas.replace(pessoa.getIdPessoa(), pessoa);
     }
 
+    private Map<IdPessoa, Voluntario> voluntarios = new HashMap<>();
+
+    @Override
+    public void salvar(Voluntario voluntario) {
+        voluntarios.put(voluntario.getIdPessoa(), voluntario);
+    }
+
+    @Override
+    public void editar(Voluntario voluntario) {
+        voluntarios.replace(voluntario.getIdPessoa(), voluntario);
+    }
+
+    @Override
+    public Voluntario obterVoluntarioPorId(IdPessoa idVoluntario) {
+        return voluntarios.get(idVoluntario);
+    }
+
+    @Override
+    public List listarVoluntarios() {
+        return List.copyOf(voluntarios.values());
+    }
+
     @Override
     public Pessoa obterPorId(IdPessoa idPessoa) {
         return pessoas.get(idPessoa);
     }
+
+    @Override
+    public Pessoa buscarPorCPF(String cpf) {
+        return pessoas.values().stream().filter(pessoa -> pessoa.getCpf().equals(cpf)).findFirst().orElse(null);
+    }
+
+    @Override
+    public Abrigo obterPorNome(String nomeAbrigo) {
+        return abrigos.values().stream().filter(abrigo -> abrigo.getNomeAbrigo().equals(nomeAbrigo)).findFirst().orElse(null);
+    }
+
+
 }

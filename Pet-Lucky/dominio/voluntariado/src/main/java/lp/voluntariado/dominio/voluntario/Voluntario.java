@@ -1,4 +1,4 @@
-package lb.voluntariado.dominio.voluntario;
+package lp.voluntariado.dominio.voluntario;
 
 import lp.adocao.dominio.abrigo.Abrigo;
 import lp.adocao.dominio.comuns.Contato;
@@ -20,7 +20,7 @@ public class Voluntario extends Pessoa {
     }
 
     public Voluntario(Pessoa pessoa, List<Abrigo> abrigosAssociados) {
-        super(pessoa.getIdPessoa(), pessoa.getEnderecoPessoa(), pessoa.getContatoPessoa(), pessoa.getNomePessoa(), pessoa.getCpf(), pessoa.getDataPessoa(), pessoa.getTagsPersonalidadeDesejada());
+        super(pessoa.getIdPessoa(), pessoa.getEnderecoPessoa(), pessoa.getContatoPessoa(), pessoa.getNomePessoa(), pessoa.getCpf(), pessoa.getDataPessoa(), pessoa.getPreferencias());
         this.abrigosAssociados = abrigosAssociados;
     }
 

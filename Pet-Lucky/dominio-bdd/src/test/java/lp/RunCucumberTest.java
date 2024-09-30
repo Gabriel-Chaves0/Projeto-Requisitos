@@ -6,9 +6,10 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/java/lp", // Caminho para os arquivos .feature
-        glue = "lp", // Pacote onde os Step Definitions estão
-        plugin = {"pretty", "html:target/cucumber-reports.html"} // Opções de output
+        features = "src/test/resources", // Caminho para os arquivos .feature
+        glue = "lp",             // Pacote onde estão as Step Definitions
+        plugin = {"pretty", "html:target/cucumber-reports.html"}, // Gera um relatório de saída em HTML
+        monochrome = true              // Para melhor legibilidade no console
 )
 public class RunCucumberTest {
 }

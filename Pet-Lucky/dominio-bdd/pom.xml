@@ -19,6 +19,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>lp</groupId>
+            <artifactId>adocao</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>7.18.1</version>
@@ -36,7 +41,12 @@
             <version>7.19.0</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>lp</groupId>
+            <artifactId>persistencia</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
 
 
     </dependencies>

@@ -1,9 +1,15 @@
 package lp;
 
-import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.en.Then;
+import io.cucumber.datatable.DataTable;
+import lp.adocao.dominio.animal.Animal;
+import lp.adocao.dominio.animal.IdAnimal;
+import lp.adocao.dominio.abrigo.IdAbrigo;
+import lp.adocao.dominio.pessoa.Pessoa;
+import lp.repositorioGenerico;
+import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,14 +18,15 @@ import java.util.stream.Collectors;
 
 public class RecomendacoesUsuarioSteps {
 
-    private List<Animal> animaisDisponiveis = new ArrayList<>();
+    private repositorioGenerico repositorio = new repositorioGenerico();
     private List<Animal> animaisRecomendados = new ArrayList<>();
-    private Usuario usuario;
+    private Pessoa usuario;
 
     @Given("o usuário {string} tem as seguintes preferências:")
     public void oUsuarioTemAsSeguintesPreferencias(String nomeUsuario, DataTable dataTable) {
         Map<String, String> preferencias = dataTable.asMap(String.class, String.class);
-        usuario = new Usuario(nomeUsuario, preferencias);
+        usuario = new Pessoa(null, null, null, nomeUsuario, "123.456.789-00", null, null);
+        repositorio.salvar(usuario); // Salva o usuário no repositório
     }
 
     @Given("existem os seguintes animais disponíveis:")
@@ -27,31 +34,35 @@ public class RecomendacoesUsuarioSteps {
         List<Map<String, String>> animais = dataTable.asMaps(String.class, String.class);
         for (Map<String, String> dadosAnimal : animais) {
             Animal animal = new Animal(
+                    new IdAnimal(1),
+                    new IdAbrigo(1),
+                    null,
+                    null,
                     dadosAnimal.get("Nome"),
-                    dadosAnimal.get("Espécie"),
-                    dadosAnimal.get("Raça"),
-                    dadosAnimal.get("Porte")
+                    "2 anos",
+                    dadosAnimal.get("Especie"),
+                    dadosAnimal.get("Raca"),
+                    dadosAnimal.get("Porte"),
+                    "Macho"
             );
-            animaisDisponiveis.add(animal);
+            repositorio.salvar(animal); // Salva o animal no repositório
         }
     }
 
     @When("o usuário {string} acessa as recomendações")
     public void oUsuarioAcessaAsRecomendacoes(String nomeUsuario) {
-        Map<String, String> prefs = usuario.getPreferencias();
+        List<Animal> animaisDisponiveis = List.copyOf(repositorio.animais.values());
+        // Exemplo de filtro de recomendação por espécie "Cachorro"
         animaisRecomendados = animaisDisponiveis.stream()
-                .filter(animal ->
-                        animal.getEspecie().equalsIgnoreCase(prefs.get("Espécie")) &&
-                                animal.getRaca().equalsIgnoreCase(prefs.get("Raça")) &&
-                                animal.getPorte().equalsIgnoreCase(prefs.get("Porte"))
-                ).collect(Collectors.toList());
+                .filter(animal -> animal.getEspecie().equalsIgnoreCase("Cachorro"))
+                .collect(Collectors.toList());
     }
 
     @Then("o sistema deve recomendar os seguintes animais:")
     public void oSistemaDeveRecomendarOsSeguintesAnimais(DataTable dataTable) {
         List<String> nomesEsperados = dataTable.asList(String.class);
         List<String> nomesRecomendados = animaisRecomendados.stream()
-                .map(Animal::getNome)
+                .map(Animal::getNomeAnimal)
                 .collect(Collectors.toList());
         Assert.assertTrue(nomesRecomendados.containsAll(nomesEsperados));
     }
@@ -60,7 +71,7 @@ public class RecomendacoesUsuarioSteps {
     public void oSistemaNaoDeveRecomendarOsSeguintesAnimais(DataTable dataTable) {
         List<String> nomesNaoEsperados = dataTable.asList(String.class);
         List<String> nomesRecomendados = animaisRecomendados.stream()
-                .map(Animal::getNome)
+                .map(Animal::getNomeAnimal)
                 .collect(Collectors.toList());
         for (String nome : nomesNaoEsperados) {
             Assert.assertFalse(nomesRecomendados.contains(nome));

@@ -42,6 +42,10 @@ public class Pessoa {
         this.tagsPersonalidadeDesejada.removeAll(tags);
     }
 
+    public List<Personalidade> getTagsPersonalidadeDesejada() {
+        return tagsPersonalidadeDesejada;
+    }
+
     public IdPessoa getIdPessoa() {
         return idPessoa;
     }
@@ -68,5 +72,13 @@ public class Pessoa {
 
     public void setNomePessoa(String nomePessoa) {
         this.nomePessoa = nomePessoa;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public Date getDataPessoa() {
+        return dataPessoa;
     }
 }

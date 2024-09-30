@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>lp</groupId>
-        <artifactId>Pet-Lucky</artifactId>
+        <artifactId>dominio</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>persistencia</artifactId>
+    <artifactId>voluntariado</artifactId>
 
     <properties>
         <maven.compiler.source>22</maven.compiler.source>
@@ -22,12 +22,6 @@
             <groupId>lp</groupId>
             <artifactId>adocao</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>lp</groupId>
-            <artifactId>voluntariado</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 

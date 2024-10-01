@@ -109,8 +109,8 @@ BoundedContext Adocao implements Adocao{
 			String idade_animal
 			String especie
 			String raca
-			String porte
-			String sexo;
+			-Porte porte
+			-Sexo sexo
 			Boolean foi_adotado;
 			
 			def IdAnimal getIdAnimal();
@@ -152,6 +152,13 @@ BoundedContext Adocao implements Adocao{
 			def void setVermifugado(boolean vermifugado);
 			def boolean isCastrado();
 			def void setCastrado(boolean castrado);
+		}
+		
+		enum Porte{
+			EQUENO, MEDIO, GRANDE
+		}
+		enum Sexo{
+			MACHO, FEMEA
 		}
 	}
 	

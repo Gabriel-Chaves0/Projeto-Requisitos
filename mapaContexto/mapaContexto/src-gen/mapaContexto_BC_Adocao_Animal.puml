@@ -8,13 +8,13 @@ package "'Animal' Aggregate" <<Rectangle>> {
 		String idade_animal
 		String especie
 		String raca
-		String porte
-		String sexo
 		Boolean foi_adotado
 		IdAnimal id_animal
 		IdAbrigo id_abrigo
 		IdPessoa[0..1] id_adotante
 		SaudeAnimal[0..1] saude_animal
+		Porte porte
+		Sexo sexo
 		IdAnimal getIdAnimal()
 		String getNomeAnimal()
 		void setNomeAnimal(String nomeAnimal)
@@ -46,6 +46,15 @@ package "'Animal' Aggregate" <<Rectangle>> {
 		boolean isCastrado()
 		void setCastrado(boolean castrado)
 	}
+	enum Porte {
+		EQUENO
+		MEDIO
+		GRANDE
+	}
+	enum Sexo {
+		MACHO
+		FEMEA
+	}
 	class InfoAdotante <<(S,DarkSeaGreen) Service>> {
 		IdPessoa getIdAdotante()
 		void setIdAdotante(IdPessoa idAdotante)
@@ -56,6 +65,8 @@ package "'Animal' Aggregate" <<Rectangle>> {
 }
 Animal "1" --> "0..1" SaudeAnimal : saude_animal
 Animal --> IdAnimal : id_animal
+Animal --> Porte : porte
+Animal --> Sexo : sexo
 
 
 @enduml

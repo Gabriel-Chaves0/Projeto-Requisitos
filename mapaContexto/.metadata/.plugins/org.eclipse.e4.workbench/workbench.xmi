@@ -110,7 +110,7 @@
                 </children>
               </children>
             </children>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_y4jb-2vIEe-ENatew3MaGA" containerData="7500" selectedElement="_y4jb_GvIEe-ENatew3MaGA">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_y4jb-2vIEe-ENatew3MaGA" containerData="7500">
               <children xsi:type="basic:PartSashContainer" xmi:id="_y4jb_GvIEe-ENatew3MaGA" containerData="7500" selectedElement="_y4jb_WvIEe-ENatew3MaGA" horizontal="true">
                 <children xsi:type="advanced:Placeholder" xmi:id="_y4jb_WvIEe-ENatew3MaGA" elementId="org.eclipse.ui.editorss" containerData="7500" ref="_y4PS4GvIEe-ENatew3MaGA"/>
                 <children xsi:type="basic:PartSashContainer" xmi:id="_y4jb_mvIEe-ENatew3MaGA" toBeRendered="false" containerData="2500">
@@ -224,14 +224,26 @@
       <tags>categoryTag:Help</tags>
     </sharedElements>
     <sharedElements xsi:type="advanced:Area" xmi:id="_y4PS4GvIEe-ENatew3MaGA" elementId="org.eclipse.ui.editorss" selectedElement="_y4PS4WvIEe-ENatew3MaGA">
-      <children xsi:type="basic:PartStack" xmi:id="_y4PS4WvIEe-ENatew3MaGA" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_MNw7QGvKEe-vO-xAA8K0zw">
+      <children xsi:type="basic:PartStack" xmi:id="_y4PS4WvIEe-ENatew3MaGA" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_D-0-IIAGEe-bE8neSepK-Q">
         <tags>EditorStack</tags>
         <tags>org.eclipse.e4.primaryDataStack</tags>
         <children xsi:type="basic:Part" xmi:id="_MNw7QGvKEe-vO-xAA8K0zw" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="mapaContexto.cml" iconURI="platform:/plugin/org.contextmapper.dsl.ui/icons/cml.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.contextmapper.dsl.ContextMappingDSL&quot; name=&quot;mapaContexto.cml&quot; partName=&quot;mapaContexto.cml&quot; title=&quot;mapaContexto.cml&quot; tooltip=&quot;mapaContexto/mapaContexto.cml&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/mapaContexto/mapaContexto.cml&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;1498&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.contextmapper.dsl.ContextMappingDSL&quot; name=&quot;mapaContexto.cml&quot; partName=&quot;mapaContexto.cml&quot; title=&quot;mapaContexto.cml&quot; tooltip=&quot;mapaContexto/mapaContexto.cml&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/mapaContexto/mapaContexto.cml&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;2880&quot; selectionTopPixel=&quot;1817&quot;/>&#xD;&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>removeOnHide</tags>
           <tags>org.contextmapper.dsl.ContextMappingDSL</tags>
+        </children>
+        <children xsi:type="basic:Part" xmi:id="_B8er4IAGEe-bE8neSepK-Q" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="mapaContexto_BC_Adocao_Animal.puml" iconURI="platform:/plugin/de.jcup.asciidoctoreditor/icons/plantuml-asciidoctor-editor.png" closeable="true">
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;asciidoctoreditor.editors.AsciiDoctorPlantUMLEditor&quot; name=&quot;mapaContexto_BC_Adocao_Animal.puml&quot; partName=&quot;mapaContexto_BC_Adocao_Animal.puml&quot; title=&quot;mapaContexto_BC_Adocao_Animal.puml&quot; tooltip=&quot;mapaContexto/src-gen/mapaContexto_BC_Adocao_Animal.puml&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/mapaContexto/src-gen/mapaContexto_BC_Adocao_Animal.puml&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;0&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
+          <tags>Editor</tags>
+          <tags>removeOnHide</tags>
+          <tags>asciidoctoreditor.editors.AsciiDoctorPlantUMLEditor</tags>
+        </children>
+        <children xsi:type="basic:Part" xmi:id="_D-0-IIAGEe-bE8neSepK-Q" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="mapaContexto_BC_Adocao.puml" iconURI="platform:/plugin/de.jcup.asciidoctoreditor/icons/plantuml-asciidoctor-editor.png" closeable="true">
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;asciidoctoreditor.editors.AsciiDoctorPlantUMLEditor&quot; name=&quot;mapaContexto_BC_Adocao.puml&quot; partName=&quot;mapaContexto_BC_Adocao.puml&quot; title=&quot;mapaContexto_BC_Adocao.puml&quot; tooltip=&quot;mapaContexto/src-gen/mapaContexto_BC_Adocao.puml&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/mapaContexto/src-gen/mapaContexto_BC_Adocao.puml&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;0&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
+          <tags>Editor</tags>
+          <tags>removeOnHide</tags>
+          <tags>asciidoctoreditor.editors.AsciiDoctorPlantUMLEditor</tags>
         </children>
       </children>
     </sharedElements>
@@ -366,8 +378,14 @@
     <sharedElements xsi:type="basic:Part" xmi:id="_y4i04GvIEe-ENatew3MaGA" elementId="org.eclipse.tm.terminal.view.ui.TerminalsView" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Terminal" iconURI="platform:/plugin/org.eclipse.tm.terminal.view.ui/icons/eview16/terminal_view.gif" tooltip="" closeable="true">
       <persistedState key="originalCompatibilityViewClass" value="org.eclipse.tm.terminal.view.ui.view.TerminalsView"/>
       <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.tm.terminal.view.ui"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view>&#xD;&#xA;&lt;terminalConnections id=&quot;org.eclipse.tm.terminal.view.ui.TerminalsView&quot;/>&#xD;&#xA;&lt;/view>"/>
       <tags>View</tags>
       <tags>categoryTag:Terminal</tags>
+      <menus xmi:id="_JdrzgIAGEe-bE8neSepK-Q" elementId="org.eclipse.tm.terminal.view.ui.TerminalsView">
+        <tags>ViewMenu</tags>
+        <tags>menuContribution:menu</tags>
+      </menus>
+      <toolbar xmi:id="_JdrzgYAGEe-bE8neSepK-Q" elementId="org.eclipse.tm.terminal.view.ui.TerminalsView" visible="false"/>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_y4i04WvIEe-ENatew3MaGA" elementId="org.eclipse.jdt.bcoview.views.BytecodeOutlineView" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Bytecode" iconURI="platform:/plugin/org.eclipse.jdt.bcoview/icons/bytecodeview.gif" tooltip="" closeable="true">
       <persistedState key="originalCompatibilityViewClass" value="org.eclipse.jdt.bcoview.views.BytecodeOutlineView"/>
@@ -394,7 +412,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_yt0yoGvIEe-ENatew3MaGA" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_04ihwG9tEe-wAeypzW6O9A" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_yYUc5mvIEe-ENatew3MaGA"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_9SH1kIAFEe-bE8neSepK-Q" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_yYUc5mvIEe-ENatew3MaGA"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_yt0yoWvIEe-ENatew3MaGA" elementId="group.edit" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -425,7 +443,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_yt1ZsGvIEe-ENatew3MaGA" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_04pPcG9tEe-wAeypzW6O9A" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" enabled="false" type="Check" command="_yYTO72vIEe-ENatew3MaGA"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_9SMHAIAFEe-bE8neSepK-Q" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" enabled="false" type="Check" command="_yYTO72vIEe-ENatew3MaGA"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_yt1ZsWvIEe-ENatew3MaGA" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>

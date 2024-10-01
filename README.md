@@ -1,5 +1,8 @@
 # PetLucky
 Projeto desenvolvido para a cadeira de Requisitos e validação.
+Link da primeira apresentação: https://www.canva.com/design/DAGSUmmFmOs/dOEaYMEEJ6nssUKCpDOFUg/edit?utm_content=DAGSUmmFmOs&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+Link do protótipo de baixa: https://www.figma.com/design/otEKCscFUeuIqu5JOpJV2F/PetLucky?node-id=0-1&t=DaZmUX2Lfgb6pMRI-1
+Link do avion: https://petlucky.avion.io/map/efaHJsnXYA4otFRp9
 
 ## Dominio
 O sistema PetLucky tem como principal objetivo conectar pessoas interessadas em adotar algum animal de estimação e os responsáveis pela adoção deles. O sistema é composto por diversas funcionalidades para melhorar a experiência do usuário como: recomendação de animais de acordo com o perfil do adotante, relatórios de acompanhamento dos status do animal, pesquisas de animais com filtros (raça, comportamento, proximidade...), agenda de visitas ao abrigo, avaliação de adotantes e abrigos, planos de cuidados personalizados, gestão de doações e voluntariado e integração com redes sociais.

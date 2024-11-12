@@ -14,6 +14,8 @@
         <module>dominio</module>
         <module>persistencia</module>
         <module>persistencia</module>
+        <module>apresentacao</module>
+        <module>apresentacao/backend</module>
     </modules>
 
 

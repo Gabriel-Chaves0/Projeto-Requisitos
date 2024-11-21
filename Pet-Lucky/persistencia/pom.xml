@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>persistencia</artifactId>
+    <packaging>pom</packaging>
 
     <properties>
         <maven.compiler.source>22</maven.compiler.source>
@@ -30,5 +31,11 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
+
+    <modules>
+        <module>jpa</module>
+        <module>memoria</module>
+        <module>jpa</module>
+    </modules>
 
 </project>

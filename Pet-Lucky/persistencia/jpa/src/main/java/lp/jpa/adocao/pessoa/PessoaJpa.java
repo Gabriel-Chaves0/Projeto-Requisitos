@@ -1,7 +1,6 @@
 package lp.jpa.adocao.pessoa;
 
 import jakarta.persistence.*;
-import lp.adocao.dominio.pessoa.IdPessoa;
 import lp.jpa.adocao.animal.AnimalJpa;
 import lp.jpa.adocao.comuns.ContatoJpa;
 import lp.jpa.adocao.comuns.EnderecoJpa;
@@ -17,7 +16,7 @@ public class PessoaJpa {
     @Id
     @Column(name = "id_pessoa", nullable = false)
     @Convert(converter = IdPessoaConverter.class)
-    private IdPessoa id;
+    private long id;
 
 
     @Embedded
@@ -48,11 +47,11 @@ public class PessoaJpa {
     private PreferenciasJpa preferencias;
 
     // Construtores, Getters e Setters
-    public IdPessoa getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(IdPessoa id) {
+    public void setId(long id) {
         this.id = id;
     }
 

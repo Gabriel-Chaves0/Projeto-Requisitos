@@ -659,34 +659,6 @@ a.card__contact:focus::before {
     background: url('./assets/message-hover.svg') no-repeat;
 }
 
-/* MESSAGE COMPONENT */
-.message form {
-    background: var(--light-grey);
-    padding: 2rem 1rem;
-    border-radius: 0.625rem;
-    margin-bottom: 1rem;
-}
-
-.message input,
-.message textarea {
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
-    background-color: var(--white);
-}
-
-.message ::placeholder {
-    text-align: start;
-}
-
-.message textarea {
-    margin-bottom: 2rem;
-}
-
-.message form > button {
-    display: block;
-    margin: 0 auto;
-}
-
 /* PROFILE COMPONENT */
 legend {
     text-align: center;

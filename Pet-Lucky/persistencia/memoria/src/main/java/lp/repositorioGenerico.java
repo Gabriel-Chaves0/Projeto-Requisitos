@@ -117,6 +117,11 @@ public class repositorioGenerico implements IAbrigoRepositorio, IAnimalResposito
     }
 
     @Override
+    public List<Pessoa> listarPessoas() {
+        return List.of();
+    }
+
+    @Override
     public Abrigo obterPorNome(String nomeAbrigo) {
         return abrigos.values().stream().filter(abrigo -> abrigo.getNomeAbrigo().equals(nomeAbrigo)).findFirst().orElse(null);
     }

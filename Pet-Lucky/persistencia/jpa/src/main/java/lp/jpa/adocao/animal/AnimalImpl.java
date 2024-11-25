@@ -18,7 +18,7 @@ public class AnimalImpl implements IAnimalRespositorio {
     private AnimalJpaRepositorio repositorio;
 
     @Autowired
-    JpaMapeador mapeador;
+    JpaMapeador mapeador = JpaMapeador.getInstance();
 
     @Override
     public void salvar(Animal animal) {

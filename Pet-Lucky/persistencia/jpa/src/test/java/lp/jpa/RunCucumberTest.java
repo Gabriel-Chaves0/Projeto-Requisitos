@@ -14,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
         plugin = {"pretty", "html:target/cucumber-reports.html"}, // Gera um relatório de saída em HTML
         monochrome = true              // Para melhor legibilidade no console
 )
-@CucumberContextConfiguration
 @SpringBootTest
 public class RunCucumberTest {
 }

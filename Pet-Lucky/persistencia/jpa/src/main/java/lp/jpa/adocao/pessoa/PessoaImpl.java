@@ -7,13 +7,15 @@ import lp.jpa.adocao.JpaMapeador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class PessoaImpl implements IPessoaRepositorio {
     @Autowired
     private PessoaJpaRepositorio repositorio;
 
     @Autowired
-    private JpaMapeador mapeador;
+    private JpaMapeador mapeador = JpaMapeador.getInstance();
 
     @Override
     public void salvar(Pessoa pessoa) {
@@ -49,5 +51,12 @@ public class PessoaImpl implements IPessoaRepositorio {
 
         // Mapeia a entidade JPA para o domínio
         return mapeador.map(pessoaJpa, Pessoa.class);
+    }
+
+    @Override
+    public List<Pessoa> listarPessoas() {
+        return repositorio.findAll().stream()
+                .map(pessoaJpa -> mapeador.map(pessoaJpa, Pessoa.class))
+                .toList();
     }
 }

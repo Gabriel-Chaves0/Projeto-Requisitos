@@ -19,7 +19,8 @@ public class AbrigoImpl implements IAbrigoRepositorio {
     AbrigoJpaRepositorio repositorio;
 
     @Autowired
-    JpaMapeador mapeador;
+    JpaMapeador mapeador = JpaMapeador.getInstance();
+
 
     @Override
     public void salvar(Abrigo abrigo) {

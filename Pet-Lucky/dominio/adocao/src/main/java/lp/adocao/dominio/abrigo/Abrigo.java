@@ -13,13 +13,14 @@ import java.util.List;
 public class Abrigo {
 
     @Identity
-    private final IdAbrigo idAbrigo;
+    private  IdAbrigo idAbrigo;
     private String nomeAbrigo;
     private Endereco enderecoAbrigo;
     private Contato contatoAbrigo;
     private int capacidadeAbrigo;
     private List<Pessoa> funcionariosAbrigo;
     private List<Animal> animaisAbrigo;
+
 
 
     public Abrigo(IdAbrigo idAbrigo, String nome, Endereco endereco, Contato contato, int capacidade) {

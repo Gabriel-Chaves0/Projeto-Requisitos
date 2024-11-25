@@ -1,25 +1,39 @@
-package lp;
+package lp.jpa;
 
+import io.cucumber.spring.CucumberContextConfiguration;
+import lp.adocao.dominio.abrigo.Abrigo;
+import lp.adocao.dominio.abrigo.IdAbrigo;
+import lp.adocao.dominio.animal.Animal;
+import lp.adocao.dominio.animal.IdAnimal;
+import lp.adocao.dominio.comuns.Contato;
+import lp.adocao.dominio.comuns.Endereco;
+import lp.jpa.adocao.JpaMapeador;
+import lp.jpa.adocao.abrigo.AbrigoImpl;
+import lp.jpa.adocao.animal.AnimalImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.Assert;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
-import lp.adocao.dominio.animal.Animal;
-import lp.adocao.dominio.animal.IdAnimal;
-import lp.adocao.dominio.abrigo.Abrigo;
-import lp.adocao.dominio.abrigo.IdAbrigo;
-import lp.adocao.dominio.comuns.Endereco;
-import lp.jpa.adocao.abrigo.AbrigoImpl;
-import lp.jpa.adocao.animal.AnimalImpl;
-import org.junit.Assert;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import io.cucumber.spring.CucumberContextConfiguration;
+
+@SpringBootTest
 public class PesquisarAnimaisSteps {
 
-    private AnimalImpl repositorio = new AnimalImpl();
-    private AbrigoImpl repositorioAbrigo = new AbrigoImpl();
+    @Autowired
+    private AnimalImpl repositorio;
+
+    @Autowired
+    private AbrigoImpl repositorioAbrigo;
+
+    @Autowired
+    private JpaMapeador mapeador;
+
     private List<Animal> resultadoPesquisa;
 
     @Given("existem animais disponíveis para adoção")
@@ -31,8 +45,11 @@ public class PesquisarAnimaisSteps {
         Endereco enderecoSaoPaulo = new Endereco("Rua 1", "São Paulo");
         Endereco enderecoRio = new Endereco("Rua 2", "Rio de Janeiro");
 
-        Abrigo abrigoSaoPaulo = new Abrigo(idAbrigoSaoPaulo, "Abrigo São Paulo", enderecoSaoPaulo, null, 50);
-        Abrigo abrigoRio = new Abrigo(idAbrigoRio, "Abrigo Rio de Janeiro", enderecoRio, null, 50);
+        Contato contatoSaoPaulo = new Contato("fcoantonio47@gmail.com", "81981521144");
+        Contato contatoRio = new Contato("falf@cesar.school", "81981521144");
+
+        Abrigo abrigoSaoPaulo = new Abrigo(idAbrigoSaoPaulo, "Abrigo São Paulo", enderecoSaoPaulo, contatoSaoPaulo, 50);
+        Abrigo abrigoRio = new Abrigo(idAbrigoRio, "Abrigo Rio de Janeiro", enderecoRio, contatoRio, 50);
 
         // Salvando abrigos no repositório
         repositorioAbrigo.salvar(abrigoSaoPaulo);

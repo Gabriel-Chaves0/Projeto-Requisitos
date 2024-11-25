@@ -9,6 +9,5 @@ public interface IVoluntarioRepositorio {
     void salvar(Voluntario voluntario);
     void editar(Voluntario voluntario);
     Voluntario obterVoluntarioPorId(IdPessoa idVoluntario);
-
     List listarVoluntarios();
 }

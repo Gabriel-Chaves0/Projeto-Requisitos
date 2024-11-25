@@ -52,6 +52,11 @@
             <version>1.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>lp</groupId>
+            <artifactId>jpa</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
 
     </dependencies>

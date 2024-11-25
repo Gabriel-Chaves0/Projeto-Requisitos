@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/petLuck")
+@RequestMapping("/api/adocao")
 public class AdocaoControler {
 
     @Autowired

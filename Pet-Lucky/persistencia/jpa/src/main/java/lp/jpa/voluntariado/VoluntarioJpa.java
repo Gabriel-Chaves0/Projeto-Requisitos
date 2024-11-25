@@ -1,33 +1,35 @@
 package lp.jpa.voluntariado;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lp.jpa.adocao.abrigo.AbrigoJpa;
+
+import java.util.List;
 
 @Entity
 public class VoluntarioJpa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private String nome;
     private String email;
     private String telefone;
 
-    public VoluntarioJpa() {}
 
-    public VoluntarioJpa(String nome, String email, String telefone) {
-        this.nome = nome;
-        this.email = email;
-        this.telefone = telefone;
-    }
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "voluntario_abrigos",
+            joinColumns = @JoinColumn(name = "voluntario_id"),
+            inverseJoinColumns = @JoinColumn(name = "abrigo_id")
+    )
+    private List<AbrigoJpa> abrigosAssociados;
 
-    public Long getId() {
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -53,5 +55,13 @@ public class VoluntarioJpa {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public List<AbrigoJpa> getAbrigosAssociados() {
+        return abrigosAssociados;
+    }
+
+    public void setAbrigosAssociados(List<AbrigoJpa> abrigosAssociados) {
+        this.abrigosAssociados = abrigosAssociados;
     }
 }

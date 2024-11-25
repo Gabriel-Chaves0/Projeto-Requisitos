@@ -1,5 +1,7 @@
 package lp.adocao.dominio.animal;
 
+import java.util.List;
+
 import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -32,5 +34,9 @@ public class AnimalServico {
         notEmpty(id.toString(), "Id da pessoa não pode ser vazio");
 
         animalRespositorio.remover(id);
+    }
+
+    public List<Animal> listarAnimais() {
+        return animalRespositorio.listarAnimais();
     }
 }

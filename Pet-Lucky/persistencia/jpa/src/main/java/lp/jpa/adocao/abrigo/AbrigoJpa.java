@@ -6,6 +6,7 @@ import lp.jpa.adocao.comuns.ContatoJpa;
 import lp.jpa.adocao.comuns.EnderecoJpa;
 import lp.jpa.adocao.pessoa.PessoaJpa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,9 @@ public class AbrigoJpa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome_abrigo", nullable = false)
+
+
+    @Column(name = "nome_abrigo")
     private String nomeAbrigo;
 
     @Embedded
@@ -29,9 +32,9 @@ public class AbrigoJpa {
     private int capacidadeAbrigo;
 
     @OneToMany(mappedBy = "abrigo", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PessoaJpa> funcionariosAbrigo;
+    private List<PessoaJpa> funcionariosAbrigo = new ArrayList<>();
 
-    @OneToMany(mappedBy = "abrigo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "abrigo", cascade = CascadeType.ALL)
     private List<AnimalJpa> animaisAbrigo;
 
     // Construtores, Getters e Setters

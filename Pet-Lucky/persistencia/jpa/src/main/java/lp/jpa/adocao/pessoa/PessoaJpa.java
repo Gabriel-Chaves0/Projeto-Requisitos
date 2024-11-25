@@ -5,6 +5,7 @@ import lp.jpa.adocao.animal.AnimalJpa;
 import lp.jpa.adocao.comuns.ContatoJpa;
 import lp.jpa.adocao.comuns.EnderecoJpa;
 import lp.jpa.adocao.comuns.PreferenciasJpa;
+import lp.jpa.adocao.abrigo.AbrigoJpa;
 
 import java.util.Date;
 import java.util.List;
@@ -15,8 +16,13 @@ public class PessoaJpa {
 
     @Id
     @Column(name = "id_pessoa", nullable = false)
-    @Convert(converter = IdPessoaConverter.class)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+
+    @ManyToOne
+    @JoinColumn(name = "abrigo_id")
+    private AbrigoJpa abrigo;
 
 
     @Embedded

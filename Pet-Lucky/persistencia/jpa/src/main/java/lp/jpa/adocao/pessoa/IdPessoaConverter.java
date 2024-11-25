@@ -9,7 +9,7 @@ public class IdPessoaConverter implements AttributeConverter<IdPessoa, Integer> 
 
     @Override
     public Integer convertToDatabaseColumn(IdPessoa idPessoa) {
-        return idPessoa != null ? idPessoa.getId() : null;
+        return Math.toIntExact(idPessoa != null ? idPessoa.getId() : null);
     }
 
     @Override

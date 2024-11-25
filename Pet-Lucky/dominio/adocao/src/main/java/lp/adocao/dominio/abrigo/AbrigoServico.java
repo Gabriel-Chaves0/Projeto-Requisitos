@@ -1,5 +1,7 @@
 package lp.adocao.dominio.abrigo;
 
+import java.util.List;
+
 import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -32,5 +34,14 @@ public class AbrigoServico {
         notEmpty(id.toString(), "Id do abrigo não pode ser vazio");
 
         abrigoRepositorio.remover(id);
+    }
+
+    public List<Abrigo> listarAbrigos() {
+        return abrigoRepositorio.listarAbrigos();
+    }
+
+    public Abrigo obterPorNome(String nome) {
+        notEmpty(nome, "Nome do abrigo não pode ser vazio");
+        return abrigoRepositorio.obterPorNome(nome);
     }
 }

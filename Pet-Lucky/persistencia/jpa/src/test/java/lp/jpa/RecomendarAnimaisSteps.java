@@ -1,29 +1,45 @@
-package lp;
+package lp.jpa;
 
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import io.cucumber.spring.CucumberContextConfiguration;
+import lp.adocao.dominio.abrigo.Abrigo;
+import lp.adocao.dominio.abrigo.IdAbrigo;
 import lp.adocao.dominio.animal.Animal;
 import lp.adocao.dominio.animal.IdAnimal;
+import lp.adocao.dominio.animal.SaudeAnimal;
+import lp.adocao.dominio.comuns.Contato;
+import lp.adocao.dominio.comuns.Endereco;
 import lp.adocao.dominio.comuns.Preferencias;
 import lp.adocao.dominio.pessoa.IdPessoa;
 import lp.adocao.dominio.pessoa.Pessoa;
-
 import lp.jpa.adocao.abrigo.AbrigoImpl;
 import lp.jpa.adocao.animal.AnimalImpl;
 import lp.jpa.adocao.pessoa.PessoaImpl;
 import org.junit.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SpringBootTest
 public class RecomendarAnimaisSteps {
 
-    private AnimalImpl repositorio = new AnimalImpl();
-    private PessoaImpl repositorioPessoa = new PessoaImpl();
-    private AbrigoImpl repositorioAbrigo = new AbrigoImpl();
+    @Autowired
+    private AnimalImpl repositorio;
+
+    @Autowired
+    private PessoaImpl repositorioPessoa;
+
+    @Autowired
+    private AbrigoImpl repositorioAbrigo;
+
     private List<Animal> animaisRecomendados = new ArrayList<>();
+
     private Pessoa usuario;
 
     @Given("o usuário {string} prefere animais da espécie {string}, da raça {string} e de porte {string}")
@@ -37,16 +53,20 @@ public class RecomendarAnimaisSteps {
         );
 
         // Salvando a pessoa no repositório com as preferências definidas
-        usuario = new Pessoa(new IdPessoa(1), null, null, nomeUsuario, "12345678900", null, preferencias);
+        usuario = new Pessoa(new IdPessoa(1), new Endereco("Rua 2", "Recife"), new Contato("null", "null"), nomeUsuario, "12345678900", new Date(), preferencias);
         repositorioPessoa.salvar(usuario);
     }
 
     @Given("existem animais disponíveis como {string}, {string} e {string}")
     public void existemAnimaisDisponiveis(String nomeAnimal1, String nomeAnimal2, String nomeAnimal3) {
+
+        Abrigo abrigo = new Abrigo(new IdAbrigo(1), "Abrigo Esperança", new Endereco("Rua 1", "Recife"), new Contato("null", "null"), 50);
+        repositorioAbrigo.salvar(abrigo);
+
         // Criando os animais disponíveis
-        Animal rex = new Animal(new IdAnimal(1), null, null, null, nomeAnimal1, "2 anos", "Cachorro", "Labrador", "Grande", "Macho");
-        Animal bob = new Animal(new IdAnimal(2), null, null, null, nomeAnimal2, "3 anos", "Cachorro", "Poodle", "Pequeno", "Macho");
-        Animal mia = new Animal(new IdAnimal(3), null, null, null, nomeAnimal3, "3 anos", "Gato", "Siamês", "Pequeno", "Fêmea");
+        Animal rex = new Animal(new IdAnimal(1), abrigo.getIdAbrigo(), null, new SaudeAnimal(true, true, true), nomeAnimal1, "2 anos", "Cachorro", "Labrador", "Grande", "Macho");
+        Animal bob = new Animal(new IdAnimal(2), abrigo.getIdAbrigo(), null, new SaudeAnimal(true, true, true), nomeAnimal2, "3 anos", "Cachorro", "Poodle", "Pequeno", "Macho");
+        Animal mia = new Animal(new IdAnimal(3), abrigo.getIdAbrigo(), null, new SaudeAnimal(true, true, true), nomeAnimal3, "3 anos", "Gato", "Siamês", "Pequeno", "Fêmea");
 
         // Salvando os animais no repositório
         repositorio.salvar(rex);

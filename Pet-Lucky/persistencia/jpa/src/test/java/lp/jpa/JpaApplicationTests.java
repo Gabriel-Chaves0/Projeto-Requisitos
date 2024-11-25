@@ -8,6 +8,7 @@ class JpaApplicationTests {
 
     @Test
     void contextLoads() {
+
     }
 
 }

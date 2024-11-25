@@ -1,5 +1,8 @@
 package lp.jpa.adocao;
 
+import lp.jpa.adocao.pessoa.IdPessoaConverter;
+import lp.jpa.voluntariado.VoluntarioJpa;
+import lp.voluntariado.dominio.voluntario.Voluntario;
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -25,14 +28,19 @@ import lp.jpa.adocao.comuns.EnderecoJpa;
 import lp.jpa.adocao.comuns.PreferenciasJpa;
 import lp.jpa.adocao.pessoa.PessoaJpa;
 
+import java.util.Date;
+import java.util.List;
+
 @Component
 public class JpaMapeador extends ModelMapper {
 
-    @Autowired
-    public JpaMapeador() {
+
+    JpaMapeador() {
         var configuracao = getConfiguration();
         configuracao.setFieldMatchingEnabled(true);
         configuracao.setFieldAccessLevel(AccessLevel.PRIVATE);
+        IdPessoaConverter idPessoaConverter = new IdPessoaConverter();
+
 
         // Conversores para Abrigo
         addConverter(new AbstractConverter<AbrigoJpa, Abrigo>() {
@@ -85,12 +93,8 @@ public class JpaMapeador extends ModelMapper {
             protected AnimalJpa convert(Animal source) {
                 AnimalJpa animalJpa = new AnimalJpa();
                 animalJpa.setId((long) source.getIdAnimal().getId());
-                animalJpa.setAbrigo(map(new IdAbrigo(source.getIdAbrigo().getId()), AbrigoJpa.class));
-                if (source.getIdAdotante() != null) {
-                    PessoaJpa adotante = new PessoaJpa();
-                    adotante.setId((long) source.getIdAdotante().getId());
-                    animalJpa.setAdotante(adotante);
-                }
+                animalJpa.setAbrigo(map(source.getIdAbrigo(), AbrigoJpa.class));
+                animalJpa.setAdotante(source.getIdAdotante() != null ? map(source.getIdAdotante(), PessoaJpa.class) : null);
                 animalJpa.setSaude(map(source.getSaudeAnimal(), SaudeAnimalJpa.class));
                 animalJpa.setNomeAnimal(source.getNomeAnimal());
                 animalJpa.setIdadeAnimal(source.getIdadeAnimal());
@@ -98,7 +102,6 @@ public class JpaMapeador extends ModelMapper {
                 animalJpa.setRaca(source.getRaca());
                 animalJpa.setPorte(source.getPorte());
                 animalJpa.setSexo(source.getSexo());
-                animalJpa.setAdotado(source.getAdotado());
                 return animalJpa;
             }
         });
@@ -187,10 +190,89 @@ public class JpaMapeador extends ModelMapper {
                 );
             }
         });
+
+        addConverter(new AbstractConverter<VoluntarioJpa, Voluntario>() {
+            @Override
+            protected Voluntario convert(VoluntarioJpa source) {
+                Pessoa pessoa = new Pessoa(
+                        new IdPessoa((int) source.getId()),
+                        new Endereco("Rua desconhecida", "Cidade desconhecida"),
+                        new Contato(source.getEmail(), source.getTelefone()),
+                        source.getNome(),
+                        "000000000",
+                        new Date(),
+                        null
+                );
+
+                // Certifique-se de inicializar a lista de abrigos associados corretamente
+                List<Abrigo> abrigosAssociados = source.getAbrigosAssociados() != null
+                        ? source.getAbrigosAssociados().stream()
+                        .map(abrigoJpa -> map(abrigoJpa, Abrigo.class))
+                        .toList()
+                        : List.of();
+
+                return new Voluntario(pessoa, abrigosAssociados);
+            }
+        });
+
+        addConverter(new AbstractConverter<Voluntario, VoluntarioJpa>() {
+            @Override
+
+            protected VoluntarioJpa convert(Voluntario source) {
+                // Mapear campos obrigatórios
+                VoluntarioJpa voluntarioJpa = new VoluntarioJpa();
+                voluntarioJpa.setId(idPessoaConverter.convertToDatabaseColumn(source.getIdPessoa()));
+                voluntarioJpa.setNome(source.getNomePessoa());
+                voluntarioJpa.setEmail(source.getContatoPessoa().getEmail());
+                voluntarioJpa.setTelefone(source.getContatoPessoa().getTelefone());
+                // Mapear abrigos associados
+                List<AbrigoJpa> abrigosAssociados = source.getAbrigosAssociados() != null
+                        ? source.getAbrigosAssociados().stream()
+                        .map(abrigo -> map(abrigo, AbrigoJpa.class))
+                        .toList()
+                        : List.of();
+                voluntarioJpa.setAbrigosAssociados(abrigosAssociados);
+                return voluntarioJpa;
+            }
+        });
+
+        addConverter(new AbstractConverter<SaudeAnimalJpa, SaudeAnimal>() {
+            @Override
+            protected SaudeAnimal convert(SaudeAnimalJpa source) {
+                return new SaudeAnimal(
+                        source.isVacinaRaiva(),
+                        source.isCastrado(),
+                        source.isVermifugado()
+                );
+            }
+        });
+
+        addConverter(new AbstractConverter<SaudeAnimal, SaudeAnimalJpa>() {
+            @Override
+            protected SaudeAnimalJpa convert(SaudeAnimal source) {
+                SaudeAnimalJpa saudeAnimalJpa = new SaudeAnimalJpa();
+                saudeAnimalJpa.setVacinaRaiva(source.isVacinaRaiva());
+                saudeAnimalJpa.setCastrado(source.isCastrado());
+                saudeAnimalJpa.setVermifugado(source.isVermifugado());
+                return saudeAnimalJpa;
+            }
+        });
+
     }
 
     @Override
     public <D> D map(Object source, Class<D> destinationType) {
         return source != null ? super.map(source, destinationType) : null;
     }
+
+
+    public Class<List<Animal>> getTypeToken(Class<List> listClass, Class<Animal> animalClass) {
+        return new TypeToken<List<Animal>>() {
+            private static final long serialVersionUID = 1L;
+        }.getRawType();
+    }
+
+
+
+
 }

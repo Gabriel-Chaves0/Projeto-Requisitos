@@ -34,8 +34,11 @@ import java.util.List;
 @Component
 public class JpaMapeador extends ModelMapper {
 
+    @Autowired
+    private static JpaMapeador instance;
 
-    JpaMapeador() {
+
+    private JpaMapeador() {
         var configuracao = getConfiguration();
         configuracao.setFieldMatchingEnabled(true);
         configuracao.setFieldAccessLevel(AccessLevel.PRIVATE);
@@ -272,7 +275,15 @@ public class JpaMapeador extends ModelMapper {
         }.getRawType();
     }
 
+    //criar singleton
 
+
+    public static JpaMapeador getInstance() {
+        if (instance == null) {
+            instance = new JpaMapeador();
+        }
+        return instance;
+    }
 
 
 }

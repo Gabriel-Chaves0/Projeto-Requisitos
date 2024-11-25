@@ -17,7 +17,7 @@ public class VoluntarioImpl implements IVoluntarioRepositorio {
     private VoluntarioJpaRepositorio repositorio;
 
     @Autowired
-    JpaMapeador mapeador;
+    JpaMapeador mapeador = JpaMapeador.getInstance();
 
 
     @Override

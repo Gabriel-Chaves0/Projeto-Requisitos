@@ -25,7 +25,8 @@ const Home = () => {
         {matches ? 'Que tal mudar sua vida adotando seu novo melhor amigo? Vem com a gente!' : 'Adotar pode mudar uma vida. Que tal buscar seu novo melhor amigo hoje? Vem com a gente!'}
       </p>
       <div className='home__buttons'>
-        <Link className='button' to='/home'>Ver pets disponíveis para adoção</Link>
+        <Link className='button' to='/home'>PETS QUE JÁ FORAM ADOTADOS</Link>
+        <Link className='button' to='/home'>ABRIGOS COM PETS DISPONÍVEIS</Link>
         <div>
           <a className='initial__link' href="/cadastro">Cadastrar</a>
           <span style={{ fontSize: 14, padding: '0 1rem', color: '#fff' }}>ou</span>

@@ -17,7 +17,7 @@
     /* colors */
     --blue: #dae9fa;
     --green: #b6c687;
-    --coral: #da828f;
+    --coral: #fc7071;
     --btn-hover: #f7dfdf;
     --beige: #f3edbd;
     --dark-grey: hsl(240, 5%, 48%);
@@ -459,7 +459,7 @@ button:focus,
 .register p {
     width: 19.5rem;
     text-align: center;
-    color: var(--blue);
+    color: var(--green);
     margin-top: 1.5rem;
 }
 
@@ -576,7 +576,7 @@ button:focus,
     margin: 0 auto;
     width: 16rem;
     text-align: center;
-    color: var(--blue);
+    color: var(--green);
     margin-bottom: 1.5rem;
 }
 
@@ -604,7 +604,7 @@ div.card {
 .card h4,
 .message label {
     font-weight: 600;
-    color: var(--blue);
+    color: var(--green);
     font-family: var(--poppins);
     grid-area: name;
 }

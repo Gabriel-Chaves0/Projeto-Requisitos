@@ -9,10 +9,10 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>persistencia</module>
+
         <module>dominio-bdd</module>
         <module>dominio</module>
-        <module>persistencia</module>
+
         <module>persistencia</module>
         <module>apresentacao</module>
         <module>apresentacao/backend</module>

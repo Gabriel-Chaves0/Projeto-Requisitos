@@ -67,6 +67,11 @@ public class repositorioGenerico implements IAbrigoRepositorio, IAnimalResposito
         animais.replace(animal.getIdAnimal(), animal);
     }
 
+    @Override
+    public List<Animal> listarAnimais() {
+        return List.copyOf(animais.values());
+    }
+
     private Map<IdPessoa, Pessoa> pessoas = new HashMap<>();
 
     @Override

@@ -39,8 +39,7 @@ public class VoluntarioImpl implements IVoluntarioRepositorio {
     }
 
     @Override
-    public List listarVoluntarios() {
-        var voluntariosJpa = repositorio.findAll();
-        return Collections.singletonList(mapeador.map(voluntariosJpa, Voluntario.class));
+    public List<Voluntario> listarVoluntarios() {
+        return repositorio.findAll().stream().map(v -> mapeador.map(v, Voluntario.class)).toList();
     }
 }

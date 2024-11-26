@@ -10,13 +10,15 @@ const Home = () => {
     pet.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const getPet = async() => {
+const getPet = async () => {
     try {
-        return await axiosInstance.get('/api/animais/adotados');
-    } catch (e) {
-        console.log('Error', e);
+        const response = await api.get('/api/animais/adotados');
+        return response;
+    } catch (error) {
+        console.error('Failed to fetch adopted pets:', error.message || error);
+        return null;
     }
-  }
+};
 
   return (
     <motion.section
@@ -40,12 +42,11 @@ const Home = () => {
         {
           filteredPets.map((pet, i) => (
             <CardPet
-              age={pet.idade}
-              size={pet.porte}
-              behavior={pet.especie}
-              city={pet.sexo}
-              name={pet.nome}
-              img={pet.img}
+              idade={pet.idadeAnimal}
+              porte={pet.porte}
+              especie={pet.especie}
+              sexo={pet.sexo}
+              nome={pet.nomeAnimal}
               key={i}
             />
           ))

@@ -5,7 +5,6 @@ import userPic from '../assets/user.svg';
 import loggedUser from '../assets/logged-user.png';
 import Button from './Button';
 import { AuthContext } from '../contexts/auth';
-import Voluntarios from '../assets/voluntarios.svg';
 
 const Header = () => {
   const location = useLocation();
@@ -49,11 +48,8 @@ const Header = () => {
     <header className='header'>
       <nav>
         <div style={{ display: 'flex', alignItems: 'center', margintTop: '30px', color: '#da828f' }}>
-          {/* <img className='header__logo' src={LogoNome}  alt="PetLuck Logo" /> */}
           <Link className='header__home' aria-label='Tela inicial' to="/" ></Link>
-          <Link className='header__message' to="/mensagem" aria-label='Ir para Mensagens'></Link>
-          <img src={Voluntarios} alt="Voluntários"></img>
-          <Link className='header__voluntario' to="/voluntario" aria-label='Ir para tela de voluntários'></Link>
+          <Link className='header__message' to="/filter" aria-label='Ir para Mensagens'></Link>
         </div>
         {user}
       </nav>

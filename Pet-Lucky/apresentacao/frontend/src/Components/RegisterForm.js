@@ -1,6 +1,6 @@
+import React, { useState } from "react";
 import Button from "./Button";
 import { motion } from "framer-motion";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -14,13 +14,14 @@ const RegisterForm = () => {
 	const handlePasswordType = (passwordInput) => {
 		setVisiblePassword({
 			...visiblePassword,
-			[passwordInput]: visiblePassword[passwordInput] ? false : true,
+			[passwordInput]: !visiblePassword[passwordInput],
 		});
 	};
 
 	const {
 		register,
 		handleSubmit,
+		reset,
 		watch,
 		formState: { errors },
 	} = useForm({
@@ -28,9 +29,65 @@ const RegisterForm = () => {
 		reValidateMode: "onChange",
 	});
 
-	const onSubmit = (data) => {
-		console.log(data);
-		navigate("/login");
+	const onSubmit = async (data) => {
+		// Log dos dados do formulário para depuração
+		console.log("Dados do formulário:", data);
+
+		// Formatar a data de nascimento para o formato Ano/Mês/Dia
+		const dataNascimento = new Date(data.dataNascimento);
+		const formattedDate = `${dataNascimento.getFullYear()}-${String(
+			dataNascimento.getMonth() + 1
+		).padStart(2, "0")}-${String(dataNascimento.getDate()).padStart(2, "0")}`;
+
+		// Gerar um ID aleatório
+		const randomId = Math.floor(Math.random() * 1000000);
+		console.log("ID Aleatório:", randomId);
+
+		// Criar o objeto com os campos na ordem específica
+		const formattedData = {
+			id: randomId,
+			rua: data.rua,
+			cidade: data.cidade,
+			telefone: data.telefone,
+			email: data.email,
+			nome: data.nome,
+			cpf: data.cpf,
+			dataNascimento: formattedDate,
+			especie: ["cachorro"],
+			raca: ["srd"],
+			porte: ["grande"],
+			sexo: ["macho"],
+		};
+
+		// Log dos dados formatados para depuração
+		console.log("Dados formatados:", formattedData);
+
+		try {
+			// Enviar uma requisição POST para o endpoint /api/pessoas
+			const response = await fetch("http://localhost:8080/api/pessoas", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(formattedData),
+			});
+
+			if (response.ok) {
+				// Salva o CPF no localStorage para uso posterior
+				localStorage.setItem("cpf", data.cpf);
+
+				alert("Cadastro realizado com sucesso!");
+				reset(); // Redefine o formulário após o envio
+				navigate("/login");
+			} else {
+				const errorData = await response.json();
+				const errorMessage = errorData.message || "Erro ao cadastrar.";
+				alert(errorMessage);
+			}
+		} catch (error) {
+			console.error("Erro na requisição:", error);
+			alert("Erro ao cadastrar. Tente novamente mais tarde.");
+		}
 	};
 
 	return (
@@ -46,20 +103,50 @@ const RegisterForm = () => {
 				precisamos de alguns dados:
 			</p>
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<label htmlFor="name">Nome</label>
+				<label htmlFor="rua">Rua</label>
 				<input
-					id="name"
+					id="rua"
 					type="text"
-					{...register("name", {
-						required: "É necessário informar seu nome",
+					{...register("rua", {
+						required: "É necessário informar sua rua",
 						maxLength: {
-							value: 25,
-							message: "O número máximo de caracteres é 25",
+							value: 50,
+							message: "O número máximo de caracteres é 50",
 						},
 					})}
-					placeholder="Digite seu nome completo"
+					placeholder="Digite sua rua"
 				/>
-				{errors.name && <p className="error">{errors.name.message}</p>}
+				{errors.rua && <p className="error">{errors.rua.message}</p>}
+
+				<label htmlFor="cidade">Cidade</label>
+				<input
+					id="cidade"
+					type="text"
+					{...register("cidade", {
+						required: "É necessário informar sua cidade",
+						maxLength: {
+							value: 30,
+							message: "O número máximo de caracteres é 30",
+						},
+					})}
+					placeholder="Digite sua cidade"
+				/>
+				{errors.cidade && <p className="error">{errors.cidade.message}</p>}
+
+				<label htmlFor="telefone">Telefone</label>
+				<input
+					id="telefone"
+					type="text"
+					{...register("telefone", {
+						required: "É necessário informar seu telefone",
+						pattern: {
+							value: /^\(?\d{2}\)?[\s-]?[\s9]?\d{4}-?\d{4}$/,
+							message: "Por favor, verifique o telefone digitado",
+						},
+					})}
+					placeholder="Digite seu telefone"
+				/>
+				{errors.telefone && <p className="error">{errors.telefone.message}</p>}
 
 				<label htmlFor="email">E-mail</label>
 				<input
@@ -78,54 +165,51 @@ const RegisterForm = () => {
 					</p>
 				)}
 
-				<label htmlFor="pass-create">Senha</label>
-				<span>
-					<span
-						onClick={() => handlePasswordType("password")}
-						className="pass__view"
-					></span>
-					<input
-						id="pass-create"
-						type={visiblePassword.password ? "text" : "password"}
-						{...register("password", {
-							required: "Crie uma senha",
-							pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/,
-						})}
-						placeholder="Crie uma senha"
-					/>
-				</span>
-				{errors.password && (
-					<p className="error">
-						{errors.password.message ||
-							"A senha deve conter pelo menos uma letra maiúscula, um número e ter entre 6 e 15 caracteres"}
-					</p>
+				<label htmlFor="nome">Nome</label>
+				<input
+					id="nome"
+					type="text"
+					{...register("nome", {
+						required: "É necessário informar seu nome",
+						maxLength: {
+							value: 25,
+							message: "O número máximo de caracteres é 25",
+						},
+					})}
+					placeholder="Digite seu nome completo"
+				/>
+				{errors.nome && <p className="error">{errors.nome.message}</p>}
+
+				<label htmlFor="cpf">CPF</label>
+				<input
+					id="cpf"
+					type="text"
+					{...register("cpf", {
+						required: "É necessário informar seu CPF",
+						pattern: {
+							value: /^\d{11}$/,
+							message: "O CPF deve conter 11 dígitos numéricos",
+						},
+					})}
+					placeholder="Digite seu CPF"
+				/>
+				{errors.cpf && <p className="error">{errors.cpf.message}</p>}
+
+				<label htmlFor="dataNascimento">Data de Nascimento</label>
+				<input
+					id="dataNascimento"
+					type="date"
+					{...register("dataNascimento", {
+						required: "É necessário informar sua data de nascimento",
+					})}
+				/>
+				{errors.dataNascimento && (
+					<p className="error">{errors.dataNascimento.message}</p>
 				)}
 
-				<label htmlFor="pass-confirm">Confirme sua senha</label>
-				<span>
-					<span
-						onClick={() => handlePasswordType("passwordRetry")}
-						className="pass__view"
-					></span>
-					<input
-						id="pass-confirm"
-						type={visiblePassword.passwordRetry ? "text" : "password"}
-						{...register("confirm_password", {
-							required: "Repita a senha criada acima",
-							validate: (value) => {
-								if (watch("password") !== value) {
-									return "As senhas não batem";
-								}
-							},
-						})}
-						placeholder="Repita a senha criada acima"
-					/>
-				</span>
-				{errors.confirm_password && (
-					<p className="error">{errors.confirm_password.message}</p>
-				)}
+				{/* Campos de senha omitidos, pois não são enviados para a API conforme especificado */}
 
-				<Button type="submit" children="Cadastrar" />
+				<Button type="submit">Cadastrar</Button>
 			</form>
 		</motion.section>
 	);

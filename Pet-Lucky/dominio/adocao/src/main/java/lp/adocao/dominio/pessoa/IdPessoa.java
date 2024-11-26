@@ -12,7 +12,6 @@ public class IdPessoa implements Identifier {
     private final int id;
 
     public IdPessoa(int id) {
-        isTrue(id > 0, "Id deve ser maior que zero");
         this.id = id;
     }
 

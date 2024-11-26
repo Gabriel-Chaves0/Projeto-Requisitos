@@ -39,16 +39,19 @@ const RegisterForm = () => {
 		// Gerar um ID aleatório
 		const randomId = Math.floor(Math.random() * 1000000);
 
-		// Criar o objeto com os campos na ordem específica, incluindo o ID
 		const formattedData = {
 			id: randomId,
 			rua: data.rua,
 			cidade: data.cidade,
 			telefone: data.telefone,
-			email: data.email,
-			nome: data.nome,
+			emailPessoa: data.email,
+			nomePessoa: data.nome,
 			cpf: data.cpf,
-			dataNascimento: formattedDate,
+			dataPessoa: formattedDate,
+			especie: ["cachorro"],
+			raca: ["srd"],
+			porte: ["grande"],
+			sexo: ["macho"]
 		};
 
 		try {

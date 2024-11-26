@@ -30,9 +30,6 @@ public class VoluntarioControler {
 
 
 
-
-
-
     @PutMapping
     public ResponseEntity<String> editarVoluntario(@PathVariable("id") int id, @RequestBody VoluntarioDTO voluntario) {
         if (voluntarioImpl.obterVoluntarioPorId(new IdPessoa(id)) != null) {
@@ -59,5 +56,5 @@ public class VoluntarioControler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
-    // INSCREVER EM UM ABRIGO
+
 }

@@ -14,7 +14,9 @@ public class VoluntarioJpa {
     private String nome;
     private String email;
     private String telefone;
-
+    private String cpf;
+    private String rua;
+    private String cidade;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -55,6 +57,29 @@ public class VoluntarioJpa {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getCpf() {
+        return this.cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getRua() {
+        return rua;
+    }
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
     public List<AbrigoJpa> getAbrigosAssociados() {

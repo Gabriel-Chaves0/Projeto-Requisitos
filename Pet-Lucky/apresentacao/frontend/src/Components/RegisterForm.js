@@ -38,6 +38,7 @@ const RegisterForm = () => {
 
 		// Gerar um ID aleatório
 		const randomId = Math.floor(Math.random() * 1000000);
+		console.log(randomId)
 
 		const formattedData = {
 			id: randomId,

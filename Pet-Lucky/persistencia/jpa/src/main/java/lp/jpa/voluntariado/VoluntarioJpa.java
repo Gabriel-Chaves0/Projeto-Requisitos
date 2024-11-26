@@ -2,6 +2,7 @@ package lp.jpa.voluntariado;
 
 import jakarta.persistence.*;
 import lp.jpa.adocao.abrigo.AbrigoJpa;
+import lp.jpa.adocao.comuns.EnderecoJpa;
 
 import java.util.List;
 
@@ -9,7 +10,6 @@ import java.util.List;
 public class VoluntarioJpa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nome;
     private String email;

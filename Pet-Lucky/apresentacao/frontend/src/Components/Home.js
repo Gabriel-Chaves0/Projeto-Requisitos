@@ -10,6 +10,14 @@ const Home = () => {
     pet.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const getPet = async() => {
+    try {
+        return await axiosInstance.get('/api/animais/adotados');
+    } catch (e) {
+        console.log('Error', e);
+    }
+  }
+
   return (
     <motion.section
       className='home'
@@ -32,11 +40,11 @@ const Home = () => {
         {
           filteredPets.map((pet, i) => (
             <CardPet
-              age={pet.age}
-              size={pet.size}
-              behavior={pet.behavior}
-              city={pet.city}
-              name={pet.name}
+              age={pet.idade}
+              size={pet.porte}
+              behavior={pet.especie}
+              city={pet.sexo}
+              name={pet.nome}
               img={pet.img}
               key={i}
             />

@@ -3,12 +3,14 @@ package lp.apresentacao.adocao.animal;
 
 import lp.adocao.dominio.animal.Animal;
 import lp.adocao.dominio.animal.IdAnimal;
+import lp.apresentacao.adocao.animal.dto.AnimalDTO;
 import lp.jpa.adocao.animal.AnimalImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -24,8 +26,9 @@ public class AnimalControler {
     }
 
     @PostMapping
-    public ResponseEntity<String> salvarAnimal(@RequestBody Animal animal) {
-        animalImpl.salvar(animal);
+    public ResponseEntity<String> salvarAnimal(@RequestBody AnimalDTO animal) {
+
+        animalImpl.salvar(animal.toAnimal());
         return ResponseEntity.ok("Animal salvo com sucesso!");
     }
 
@@ -40,9 +43,9 @@ public class AnimalControler {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> editarAnimal(@PathVariable("id") int id, @RequestBody Animal animal) {
+    public ResponseEntity<String> editarAnimal(@PathVariable("id") int id, @RequestBody AnimalDTO animal) {
         if (animalImpl.obterPorId(new IdAnimal(id)) != null) {
-            animalImpl.editar(animal);
+            animalImpl.editar(animal.toAnimal());
             return ResponseEntity.ok("Animal atualizado com sucesso!");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Animal não encontrado.");
@@ -74,19 +77,40 @@ public class AnimalControler {
 
     //funcionalidade de PesquisarAnimais
     @GetMapping("/pesquisar")
-    public ResponseEntity<List<Animal>> pesquisarAnimais( @RequestParam(required = false) String nome,  @RequestParam(required = false) String raca,
-                                                          @RequestParam(required = false) Integer idade) {
+    public ResponseEntity<List<Animal>> pesquisarAnimais(
+            @RequestParam(required = false) String nome,
+            @RequestParam(required = false) String raca,
+            @RequestParam(required = false) Integer idade) {
 
-        List<Animal> animais = animalImpl.listarAnimais().stream()
-                .filter(animal -> (nome == null || animal.getNomeAnimal().equalsIgnoreCase(nome)))
-                .filter(animal -> (raca == null || animal.getRaca().equalsIgnoreCase(raca)))
-                .filter(animal -> (idade == null || animal.getIdadeAnimal().equals(idade+"")))
-                .toList();
+        // Lista inicial de todos os animais
+        List<Animal> animais = animalImpl.listarAnimais();
 
-        if (animais.isEmpty()) {
+        // Criar a lista de estratégias dinamicamente
+        List<PesquisarAnimalStrategy> estrategias = new ArrayList<>();
+        if (nome != null && !nome.isBlank()) {
+            estrategias.add(new PesquisaPorNome(nome));
+        }
+        if (raca != null && !raca.isBlank()) {
+            estrategias.add(new PesquisaPorRaca(raca));
+        }
+        if (idade != null) {
+            estrategias.add(new PesquisaPorIdade(idade));
+        }
+
+        // Se não houver filtros, simplesmente retorna a lista completa
+        if (estrategias.isEmpty()) {
+            return ResponseEntity.ok(animais);
+        }
+
+        // Criar o contexto e aplicar as estratégias
+        ContextoPesquisaAnimal contexto = new ContextoPesquisaAnimal(estrategias);
+        List<Animal> resultado = contexto.executar(animais);
+
+        // Retorna o resultado ou 'No Content' se não houver resultados
+        if (resultado.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
-        return ResponseEntity.ok(animais);
+        return ResponseEntity.ok(resultado);
     }
 
     @GetMapping("/")

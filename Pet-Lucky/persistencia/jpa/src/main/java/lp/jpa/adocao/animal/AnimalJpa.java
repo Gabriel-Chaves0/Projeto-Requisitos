@@ -9,14 +9,13 @@ import lp.jpa.adocao.pessoa.PessoaJpa;
 public class AnimalJpa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // Identificador único no banco
 
     @ManyToOne
     @JoinColumn(name = "id_abrigo", nullable = false)
     private AbrigoJpa abrigo; // Relacionamento com a tabela de abrigo
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_adotante")
     private PessoaJpa adotante; // Relacionamento com a tabela de pessoa
 

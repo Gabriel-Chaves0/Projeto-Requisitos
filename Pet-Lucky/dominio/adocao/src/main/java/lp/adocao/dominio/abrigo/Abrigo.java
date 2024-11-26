@@ -32,7 +32,10 @@ public class Abrigo {
     }
 
     public boolean isMaxCpacity () {
-        return animaisAbrigo.size() >= capacidadeAbrigo;
+        if (animaisAbrigo != null){
+            return animaisAbrigo.size() >= capacidadeAbrigo;
+        }
+        return false;
     }
 
     public IdAbrigo getIdAbrigo() {

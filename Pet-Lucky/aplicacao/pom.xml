@@ -65,8 +65,8 @@
         </dependency>
         <dependency>
             <groupId>lp</groupId>
-            <artifactId>persistencia</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>jpa</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

@@ -8,12 +8,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/")  // Adicione o padrão que você quer permitir
-                .allowedOrigins("http://localhost:3000")  // Permite o acesso de localhost:3000
-                .allowedMethods("GET", "POST", "PUT", "DELETE")  // Métodos HTTP permitidos
-                .allowedHeaders("*");  // Permite todos os cabeçalhos
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**") // Permitir todas as rotas
+                        .allowedOrigins("http://localhost:3000") // Substitua pelo domínio do front-end
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Métodos HTTP permitidos
+                        .allowedHeaders("*") // Permitir todos os cabeçalhos
+                        .allowCredentials(true); // Permitir credenciais (cookies)
+            }
+        };
     }
 
 }

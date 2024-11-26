@@ -26,6 +26,7 @@ public class PessoaControler {
         this.pessoaImpl = pessoaImpl;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping
     public ResponseEntity<String> salvarPessoa(@RequestBody PessoaDTO pessoa) {
         pessoaImpl.salvar(pessoa.toPessoa());

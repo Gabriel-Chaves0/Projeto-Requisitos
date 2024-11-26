@@ -61,6 +61,51 @@ const RegisterForm = () => {
 				/>
 				{errors.name && <p className="error">{errors.name.message}</p>}
 
+				<label htmlFor="telefone">Telefone</label>
+				<input
+					id="telefone"
+					type="text"
+					{...register("telefone", {
+						required: "É necessário informar seu telefone",
+						pattern: {
+							value: /^\(?\d{2}\)?[\s-]?[\s9]?\d{4}-?\d{4}$/,
+							message: "Por favor, verifique o telefone digitado",
+						},
+					})}
+					placeholder="Digite seu telefone"
+				/>
+				{errors.telefone && <p className="error">{errors.telefone.message}</p>}
+
+				<label htmlFor="rua">Rua</label>
+				<input
+					id="rua"
+					type="text"
+					{...register("rua", {
+						required: "É necessário informar sua rua",
+						maxLength: {
+							value: 50,
+							message: "O número máximo de caracteres é 50",
+						},
+					})}
+					placeholder="Digite sua rua"
+				/>
+				{errors.rua && <p className="error">{errors.rua.message}</p>}
+
+				<label htmlFor="cidade">Cidade</label>
+				<input
+					id="cidade"
+					type="text"
+					{...register("cidade", {
+						required: "É necessário informar sua cidade",
+						maxLength: {
+							value: 30,
+							message: "O número máximo de caracteres é 30",
+						},
+					})}
+					placeholder="Digite sua cidade"
+				/>
+				{errors.cidade && <p className="error">{errors.cidade.message}</p>}
+
 				<label htmlFor="email">E-mail</label>
 				<input
 					id="email"

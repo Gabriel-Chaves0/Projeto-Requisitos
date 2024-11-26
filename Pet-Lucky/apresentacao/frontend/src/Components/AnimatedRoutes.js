@@ -9,6 +9,7 @@ import AnimalFilter from "./AnimalFilter.js";
 import RegisterForm from "./RegisterForm.js";
 import Header from "./Header";
 import Footer from "./Footer";
+import Profile from "./Profile";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -37,7 +38,7 @@ const AnimatedRoutes = () => {
           <Route path='/cadastro' element={<RegisterForm />} />
           <Route path='/home' element={<Home />} />
           <Route path='/mensagem' element={<Private><AnimalFilter /></Private>} />
-          <Route path='/perfil' element={<Private><AnimalFilter /></Private>} />
+          <Route path='/perfil' element={<Private><Profile/></Private>} />
         </Routes>
       </AnimatePresence>
       <Footer />

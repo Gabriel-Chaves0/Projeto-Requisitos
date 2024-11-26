@@ -16,7 +16,6 @@ public class PessoaJpa {
 
     @Id
     @Column(name = "id_pessoa", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
 

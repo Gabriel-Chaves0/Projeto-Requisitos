@@ -4,8 +4,8 @@ package lp.apresentacao.adocao.pessoa;
 import lp.adocao.dominio.pessoa.Pessoa;
 import lp.adocao.dominio.pessoa.IdPessoa;
 
+import lp.apresentacao.adocao.pessoa.dto.PessoaDTO;
 import lp.jpa.adocao.pessoa.PessoaImpl;
-import lp.jpa.adocao.pessoa.PessoaJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +27,8 @@ public class PessoaControler {
     }
 
     @PostMapping
-    public ResponseEntity<String> salvarPessoa(@RequestBody Pessoa pessoa) {
-        pessoaImpl.salvar(pessoa);
+    public ResponseEntity<String> salvarPessoa(@RequestBody PessoaDTO pessoa) {
+        pessoaImpl.salvar(pessoa.toPessoa());
         return ResponseEntity.ok("Pessoa Salvo com sucesso!");
     }
 

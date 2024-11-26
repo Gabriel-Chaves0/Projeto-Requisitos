@@ -15,7 +15,7 @@ public class AnimalJpa {
     @JoinColumn(name = "id_abrigo", nullable = false)
     private AbrigoJpa abrigo; // Relacionamento com a tabela de abrigo
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_adotante")
     private PessoaJpa adotante; // Relacionamento com a tabela de pessoa
 

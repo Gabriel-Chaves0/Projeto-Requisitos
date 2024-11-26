@@ -58,19 +58,19 @@ const Profile = () => {
         >
             <h1>Perfil do Usuário</h1>
             <p>
-                <strong>Nome:</strong> {profileData.nome}
+                <strong>Nome:</strong> {profileData.nomePessoa}
             </p>
             <p>
-                <strong>Telefone:</strong> {profileData.telefone}
+                <strong>Telefone:</strong> {profileData.contatoPessoa.telefone}
             </p>
             <p>
-                <strong>Rua:</strong> {profileData.rua}
+                <strong>Rua:</strong> {profileData.enderecoPessoa.rua}
             </p>
             <p>
-                <strong>Cidade:</strong> {profileData.cidade}
+                <strong>Cidade:</strong> {profileData.enderecoPessoa.cidade}
             </p>
             <p>
-                <strong>Email:</strong> {profileData.email}
+                <strong>Email:</strong> {profileData.contatoPessoa.email}
             </p>
             <p>
                 <strong>CPF:</strong> {profileData.cpf}

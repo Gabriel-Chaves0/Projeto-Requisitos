@@ -199,10 +199,10 @@ public class JpaMapeador extends ModelMapper {
             protected Voluntario convert(VoluntarioJpa source) {
                 Pessoa pessoa = new Pessoa(
                         new IdPessoa((int) source.getId()),
-                        new Endereco("Rua desconhecida", "Cidade desconhecida"),
+                        new Endereco(source.getRua(), source.getCidade()),
                         new Contato(source.getEmail(), source.getTelefone()),
                         source.getNome(),
-                        "000000000",
+                        source.getCpf(),
                         new Date(),
                         null
                 );

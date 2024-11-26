@@ -12,8 +12,10 @@ const Home = () => {
   // Função que faz a requisição
   const getPet = async () => {
     try {
-      const response = await api.get('/api/animais/adotados');
-      setPets(response.data); // Atualiza o estado com os pets recebidos
+      const response = await api.get('/animais/adotados');
+      console.log(response.data); // Verifica o formato dos dados
+      const data = Array.isArray(response.data) ? response.data : [];
+      setPets(data); // Atualiza o estado com os pets recebidos
     } catch (error) {
       console.error('Failed to fetch adopted pets:', error.message || error);
       setError('Failed to load pets'); // Armazena a mensagem de erro no estado
@@ -26,9 +28,9 @@ const Home = () => {
   }, []);
 
   // Filtra os pets baseados no termo de busca
-  const filteredPets = pets.filter(pet =>
-    pet.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredPets = Array.isArray(pets) ? pets.filter(pet =>
+    pet.name?.toLowerCase().includes(searchTerm.toLowerCase())
+  ) : [];
 
   return (
     <motion.section

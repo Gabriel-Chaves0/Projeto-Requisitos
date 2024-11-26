@@ -32,8 +32,8 @@ public class AdocaoControler {
 
 
     @PutMapping("/abrigo/{id}")
-    public ResponseEntity<Abrigo> editarAbrigo(@PathVariable IdAbrigo id, @RequestBody AbrigoDTO abrigoDTO) {
-        Abrigo abrigoExistente = abrigoImpl.obterPorId(id);
+    public ResponseEntity<Abrigo> editarAbrigo(@PathVariable int id, @RequestBody AbrigoDTO abrigoDTO) {
+        Abrigo abrigoExistente = abrigoImpl.obterPorId(new IdAbrigo(id));
         if (abrigoExistente == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -44,12 +44,12 @@ public class AdocaoControler {
 
 
     @DeleteMapping("/abrigo/{id}")
-    public ResponseEntity<Void> removerAbrigo(@PathVariable IdAbrigo id) {
-        Abrigo abrigoExistente = abrigoImpl.obterPorId(id);
+    public ResponseEntity<Void> removerAbrigo(@PathVariable int id) {
+        Abrigo abrigoExistente = abrigoImpl.obterPorId(new IdAbrigo(id));
         if (abrigoExistente == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        abrigoImpl.remover(id);
+        abrigoImpl.remover(new IdAbrigo(id));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -61,8 +61,8 @@ public class AdocaoControler {
 
 
     @GetMapping("/abrigos/{id}")
-    public List<Animal> recomendarAnimais(@PathVariable IdPessoa idPessoa) {
-        return adocaoService.recomendarAnimais(idPessoa);
+    public List<Animal> recomendarAnimais(@PathVariable int id) {
+        return adocaoService.recomendarAnimais(new IdPessoa(id));
     }
 
 }

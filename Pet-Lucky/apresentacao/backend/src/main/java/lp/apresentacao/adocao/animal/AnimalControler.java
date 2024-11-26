@@ -3,6 +3,7 @@ package lp.apresentacao.adocao.animal;
 
 import lp.adocao.dominio.animal.Animal;
 import lp.adocao.dominio.animal.IdAnimal;
+import lp.apresentacao.adocao.animal.dto.AnimalDTO;
 import lp.jpa.adocao.animal.AnimalImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,8 +25,9 @@ public class AnimalControler {
     }
 
     @PostMapping
-    public ResponseEntity<String> salvarAnimal(@RequestBody Animal animal) {
-        animalImpl.salvar(animal);
+    public ResponseEntity<String> salvarAnimal(@RequestBody AnimalDTO animal) {
+
+        animalImpl.salvar(animal.toAnimal());
         return ResponseEntity.ok("Animal salvo com sucesso!");
     }
 
@@ -39,10 +41,13 @@ public class AnimalControler {
         }
     }
 
+    @GetMapping
+
+
     @PutMapping("/{id}")
-    public ResponseEntity<String> editarAnimal(@PathVariable("id") int id, @RequestBody Animal animal) {
+    public ResponseEntity<String> editarAnimal(@PathVariable("id") int id, @RequestBody AnimalDTO animal) {
         if (animalImpl.obterPorId(new IdAnimal(id)) != null) {
-            animalImpl.editar(animal);
+            animalImpl.editar(animal.toAnimal());
             return ResponseEntity.ok("Animal atualizado com sucesso!");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Animal não encontrado.");

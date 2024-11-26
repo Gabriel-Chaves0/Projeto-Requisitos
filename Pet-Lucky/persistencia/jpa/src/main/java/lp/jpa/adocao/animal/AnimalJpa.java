@@ -9,7 +9,6 @@ import lp.jpa.adocao.pessoa.PessoaJpa;
 public class AnimalJpa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // Identificador único no banco
 
     @ManyToOne

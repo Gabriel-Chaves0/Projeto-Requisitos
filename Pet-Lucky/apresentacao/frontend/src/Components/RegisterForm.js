@@ -36,8 +36,8 @@ const RegisterForm = () => {
 		// Formatar a data de nascimento para o formato Ano/Mês/Dia
 		const dataNascimento = new Date(data.dataNascimento);
 		const formattedDate = `${dataNascimento.getFullYear()}-${String(
-			dataNascimento.getMonth() + 1
-		).padStart(2, "0")}-${String(dataNascimento.getDate()).padStart(2, "0")}`;
+			dataNascimento.getMonth()
+		).padStart(2, "0")}-${String(dataNascimento.getDate()).padStart(2, "0")}T00:00:00`;
 
 		// Gerar um ID aleatório
 		const randomId = Math.floor(Math.random() * 1000000);
@@ -45,14 +45,14 @@ const RegisterForm = () => {
 
 		// Criar o objeto com os campos na ordem específica
 		const formattedData = {
-			id: randomId,
+			idPessoa: randomId,
 			rua: data.rua,
 			cidade: data.cidade,
 			telefone: data.telefone,
-			email: data.email,
-			nome: data.nome,
+			emailPessoa: data.email,
+			nomePessoa: data.nome,
 			cpf: data.cpf,
-			dataNascimento: formattedDate,
+			dataPessoa: formattedDate,
 			especie: ["cachorro"],
 			raca: ["srd"],
 			porte: ["grande"],

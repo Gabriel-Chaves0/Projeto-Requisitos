@@ -43,11 +43,40 @@ const AnimalRegisterForm = () => {
         fetchAbrigos();
     }, []);
 
+    const [pessoas, setPessoas] = useState([]);
+
+    useEffect(() => {
+        const fetchUsuarios = async () => {
+            try{
+                const response = await fetch("http://localhost:8080/api/pessoas");
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log("Pessoas recebidos:", data);
+                    setPessoas(data)
+                }
+                else {
+                    throw new Error("Erro ao obter a lista de pessoas.");
+                }
+            } catch ( error){
+                console.error("Erro ao obter a lista de pessoas.");
+            }
+        }
+        fetchUsuarios()
+    }, []);
+
     const getAbrigoId = (abrigo) => {
         if (abrigo.idAbrigo && abrigo.idAbrigo.id) {
             return abrigo.idAbrigo.id;
         }
         console.error('Não foi possível obter o ID do abrigo:', abrigo);
+        return null;
+    };
+
+    const getPessoaId = (pessoa) => {
+        if (pessoa.idPessoa && pessoa.idPessoa.id) {
+            return pessoa.idPessoa.id;
+        }
+        console.error('Não foi possível obter o ID de pessoa:', pessoa);
         return null;
     };
 
@@ -59,7 +88,7 @@ const AnimalRegisterForm = () => {
         const formattedData = {
             id: randomId,
             idAbrigo: parseInt(data.idAbrigo, 10),
-            idAdotante: null,
+            idAdotante: parseInt(data.idAdotante, 10),
             vacinaRaiva: false,
             vermifugado: false,
             castrado: false,
@@ -134,6 +163,23 @@ const AnimalRegisterForm = () => {
                     })}
                 </select>
                 {errors.idAbrigo && <p className="error">{errors.idAbrigo.message}</p>}
+                <label htmlFor="idPessoa">Pessoa</label>
+                <select
+                    id="idAPessoa"
+                    {...register("idAdotante", {
+                        required: "É necessário selecionar uma Pessoa",
+                    })}
+                >
+                    <option value="">Selecione uma Pessoa</option>
+                    {pessoas.map((pessoa) => {
+                        const id = getPessoaId(pessoa);
+                        return (
+                            <option key={id} value={id}>
+                                {pessoa.nomePessoa}
+                            </option>
+                        );
+                    })}
+                </select>
 
                 <label htmlFor="nomeAnimal">Nome do Animal</label>
                 <input

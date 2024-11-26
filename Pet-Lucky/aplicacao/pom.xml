@@ -8,11 +8,11 @@
         <version>3.4.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>backend</artifactId>
+    <groupId>lp</groupId>
+    <artifactId>aplicacao</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>backend</name>
-    <description>backend</description>
+    <name>aplicacao</name>
+    <description>aplicacao</description>
     <url/>
     <licenses>
         <license/>
@@ -42,36 +42,31 @@
             <optional>true</optional>
         </dependency>
         <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>lp</groupId>
+            <artifactId>adocao</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>lp</groupId>
+            <artifactId>voluntariado</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>lp</groupId>
             <artifactId>persistencia</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>lp</groupId>
-            <artifactId>memoria</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>lp</groupId>
-            <artifactId>jpa</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>8.0.1.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>net.bytebuddy</groupId>
-            <artifactId>byte-buddy</artifactId>
         </dependency>
     </dependencies>
 

@@ -16,6 +16,7 @@
         <module>persistencia</module>
         <module>apresentacao</module>
         <module>apresentacao/backend</module>
+        <module>aplicacao</module>
     </modules>
 
 

@@ -2,9 +2,9 @@ package lp.apresentacao.adocao.abrigo;
 
 import lp.adocao.dominio.animal.Animal;
 import lp.adocao.dominio.pessoa.IdPessoa;
-import lp.apresentacao.adocao.abrigo.AdocaoService;
 import lp.adocao.dominio.abrigo.Abrigo;
 import lp.adocao.dominio.abrigo.IdAbrigo;
+import lp.apresentacao.adocao.abrigo.dto.AbrigoDTO;
 import lp.jpa.adocao.abrigo.AbrigoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/petLuck")
+@RequestMapping("/api/adocao")
 public class AdocaoControler {
 
     @Autowired
@@ -24,19 +24,20 @@ public class AdocaoControler {
     private AdocaoService adocaoService;
 
     @PostMapping("/abrigo")
-    public ResponseEntity<Abrigo> salvarAbrigo(@RequestBody Abrigo abrigo) {
+    public ResponseEntity<Abrigo> salvarAbrigo(@RequestBody AbrigoDTO abrigoDto) {
+        var abrigo = abrigoDto.toAbrigo();
         abrigoImpl.salvar(abrigo);
         return new ResponseEntity<>(abrigo, HttpStatus.CREATED);
     }
 
 
     @PutMapping("/abrigo/{id}")
-    public ResponseEntity<Abrigo> editarAbrigo(@PathVariable IdAbrigo id, @RequestBody Abrigo abrigo) {
+    public ResponseEntity<Abrigo> editarAbrigo(@PathVariable IdAbrigo id, @RequestBody AbrigoDTO abrigoDTO) {
         Abrigo abrigoExistente = abrigoImpl.obterPorId(id);
         if (abrigoExistente == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
+        var abrigo = abrigoDTO.toAbrigo();
         abrigoImpl.editar(abrigo);
         return new ResponseEntity<>(abrigo, HttpStatus.OK);
     }

@@ -4,16 +4,21 @@ package lp.apresentacao.adocao.animal;
 import lp.adocao.dominio.animal.Animal;
 import lp.adocao.dominio.animal.IdAnimal;
 import lp.jpa.adocao.animal.AnimalImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/animais")
 public class AnimalControler {
 
+    @Autowired
     private AnimalImpl animalImpl;
 
+    @Autowired
     public AnimalControler(AnimalImpl animalImpl) {
         this.animalImpl = animalImpl;
     }
@@ -52,5 +57,44 @@ public class AnimalControler {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Animal não encontrado.");
         }
+    }
+
+    //funcionalidade de ExibirAnimaisAdotados
+    @GetMapping("/adotados")
+    public ResponseEntity<List<Animal>> exibirAnimaisAdotados() {
+        List<Animal> animaisAdotados = animalImpl.listarAnimais().stream()
+                .filter(Animal::getAdotado)
+                .toList();
+
+        if (animaisAdotados.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.ok(animaisAdotados);
+    }
+
+    //funcionalidade de PesquisarAnimais
+    @GetMapping("/pesquisar")
+    public ResponseEntity<List<Animal>> pesquisarAnimais( @RequestParam(required = false) String nome,  @RequestParam(required = false) String raca,
+                                                          @RequestParam(required = false) Integer idade) {
+
+        List<Animal> animais = animalImpl.listarAnimais().stream()
+                .filter(animal -> (nome == null || animal.getNomeAnimal().equalsIgnoreCase(nome)))
+                .filter(animal -> (raca == null || animal.getRaca().equalsIgnoreCase(raca)))
+                .filter(animal -> (idade == null || animal.getIdadeAnimal().equals(idade+"")))
+                .toList();
+
+        if (animais.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.ok(animais);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<Animal>> listarAnimais() {
+        List<Animal> animais = animalImpl.listarAnimais();
+        if (animais.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.ok(animais);
     }
 }

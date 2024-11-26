@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 const CardPet = ({ age, size, behavior, city, name, img, index }) => {
   return (
     <div key={index} className='card'>
@@ -11,7 +9,6 @@ const CardPet = ({ age, size, behavior, city, name, img, index }) => {
         <li>{behavior}</li>
       </ul>
       <p className='card__city'>{city}</p>
-      <Link className='card__contact' to="/mensagem" aria-label='Falar com responsável'>Falar com responsável</Link>
     </div>
   );
 };

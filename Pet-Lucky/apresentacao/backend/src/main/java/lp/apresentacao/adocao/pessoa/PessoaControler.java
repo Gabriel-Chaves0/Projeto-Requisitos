@@ -45,9 +45,9 @@ public class PessoaControler {
     }
 
     @PutMapping("id/{id}")
-    public ResponseEntity<String> editarPessoa(@PathVariable("id") int id, @RequestBody Pessoa pessoa) {
+    public ResponseEntity<String> editarPessoa(@PathVariable("id") int id, @RequestBody PessoaDTO pessoa) {
         if (pessoaImpl.obterPorId(new IdPessoa(id)) != null) {
-            pessoaImpl.editar(pessoa);
+            pessoaImpl.editar(pessoa.toPessoa());
             return ResponseEntity.ok("Pessoa Editado com sucesso!");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pessoa não encontrada!");

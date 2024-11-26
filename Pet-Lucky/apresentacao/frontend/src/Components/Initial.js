@@ -26,7 +26,7 @@ const Home = () => {
       </p>
       <div className='home__buttons'>
         <Link className='button' to='/home'>PETS QUE JÁ FORAM ADOTADOS</Link>
-        <Link className='button' to='/home'>ABRIGOS COM PETS DISPONÍVEIS</Link>
+        <Link className='button' to='/abrigo'>ABRIGOS COM PETS DISPONÍVEIS</Link>
         <div>
           <a className='initial__link' href="/cadastro">Cadastrar</a>
           <span style={{ fontSize: 14, padding: '0 1rem', color: '#fff' }}>ou</span>

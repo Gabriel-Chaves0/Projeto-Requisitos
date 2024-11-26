@@ -3,7 +3,6 @@ import Button from "./Button";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import api from "../services/api";
 
 const RegisterForm = () => {
 	const navigate = useNavigate();
@@ -22,6 +21,7 @@ const RegisterForm = () => {
 	const {
 		register,
 		handleSubmit,
+		reset,
 		watch,
 		formState: { errors },
 	} = useForm({
@@ -30,6 +30,9 @@ const RegisterForm = () => {
 	});
 
 	const onSubmit = async (data) => {
+		// Log dos dados do formulário para depuração
+		console.log("Dados do formulário:", data);
+
 		// Formatar a data de nascimento para o formato Ano/Mês/Dia
 		const dataNascimento = new Date(data.dataNascimento);
 		const formattedDate = `${dataNascimento.getFullYear()}-${String(
@@ -38,44 +41,52 @@ const RegisterForm = () => {
 
 		// Gerar um ID aleatório
 		const randomId = Math.floor(Math.random() * 1000000);
-		console.log(randomId)
+		console.log("ID Aleatório:", randomId);
 
+		// Criar o objeto com os campos na ordem específica
 		const formattedData = {
 			id: randomId,
 			rua: data.rua,
 			cidade: data.cidade,
 			telefone: data.telefone,
-			emailPessoa: data.email,
-			nomePessoa: data.nome,
+			email: data.email,
+			nome: data.nome,
 			cpf: data.cpf,
-			dataPessoa: formattedDate,
+			dataNascimento: formattedDate,
 			especie: ["cachorro"],
 			raca: ["srd"],
 			porte: ["grande"],
-			sexo: ["macho"]
+			sexo: ["macho"],
 		};
 
-		try {
-			// Usar Axios para enviar uma requisição POST para o endpoint /pessoas
-			const response = await api.post("/pessoas", formattedData);
+		// Log dos dados formatados para depuração
+		console.log("Dados formatados:", formattedData);
 
-			if (response.status === 200) {
+		try {
+			// Enviar uma requisição POST para o endpoint /api/pessoas
+			const response = await fetch("http://localhost:8080/api/pessoas", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(formattedData),
+			});
+
+			if (response.ok) {
 				// Salva o CPF no localStorage para uso posterior
 				localStorage.setItem("cpf", data.cpf);
 
 				alert("Cadastro realizado com sucesso!");
+				reset(); // Redefine o formulário após o envio
 				navigate("/login");
 			} else {
-				const errorMessage = response.data.message || "Erro ao cadastrar.";
+				const errorData = await response.json();
+				const errorMessage = errorData.message || "Erro ao cadastrar.";
 				alert(errorMessage);
 			}
 		} catch (error) {
 			console.error("Erro na requisição:", error);
-			if (error.response && error.response.data && error.response.data.message) {
-				alert(`Erro ao cadastrar: ${error.response.data.message}`);
-			} else {
-				alert("Erro ao cadastrar. Tente novamente mais tarde.");
-			}
+			alert("Erro ao cadastrar. Tente novamente mais tarde.");
 		}
 	};
 
@@ -154,9 +165,9 @@ const RegisterForm = () => {
 					</p>
 				)}
 
-				<label htmlFor="name">Nome</label>
+				<label htmlFor="nome">Nome</label>
 				<input
-					id="name"
+					id="nome"
 					type="text"
 					{...register("nome", {
 						required: "É necessário informar seu nome",

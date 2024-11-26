@@ -20,7 +20,7 @@ const AnimalFilter = ({ onFilter }) => {
       animate={{ width: "auto", transition: { duration: 0.5 } }}
       exit={{ x: window.innerWidth, transition: { duration: 0.5 } }}
     >
-      <p>Filtre os animais disponíveis no abrigo:</p>
+      <p>Encontre o companheiro perfeito para você:</p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="species">Espécie</label>
         <select id="species" {...register("species")}>

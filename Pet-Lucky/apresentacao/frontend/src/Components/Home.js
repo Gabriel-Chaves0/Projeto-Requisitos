@@ -1,14 +1,36 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { pets } from '../data/data.js';
+import { useState, useEffect } from 'react';
+import { pets as staticPets } from '../data/data.js'; // Renomeie a importação para 'staticPets'
 import CardPet from './CardPet.js';
+import api from "../services/api";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [pets, setPets] = useState([]); // Este estado armazena os pets da API
+  const [error, setError] = useState(null);
 
-  const filteredPets = pets.filter(pet =>
-    pet.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Função que faz a requisição
+  const getPet = async () => {
+    try {
+      const response = await api.get('/animais/adotados');
+      console.log(response.data); // Verifica o formato dos dados
+      const data = Array.isArray(response.data) ? response.data : [];
+      setPets(data); // Atualiza o estado com os pets recebidos
+    } catch (error) {
+      console.error('Failed to fetch adopted pets:', error.message || error);
+      setError('Failed to load pets'); // Armazena a mensagem de erro no estado
+    }
+  };
+
+  // Chama a função getPet quando o componente é montado
+  useEffect(() => {
+    getPet();
+  }, []);
+
+  // Filtra os pets baseados no termo de busca
+  const filteredPets = Array.isArray(pets) ? pets.filter(pet =>
+    pet.name?.toLowerCase().includes(searchTerm.toLowerCase())
+  ) : [];
 
   return (
     <motion.section
@@ -32,17 +54,18 @@ const Home = () => {
         {
           filteredPets.map((pet, i) => (
             <CardPet
-              age={pet.age}
-              size={pet.size}
-              behavior={pet.behavior}
-              city={pet.city}
-              name={pet.name}
+              idade={pet.idadeAnimal}
+              porte={pet.porte}
+              especie={pet.especie}
+              sexo={pet.sexo}
+              nome={pet.nomeAnimal}
               img={pet.img}
               key={i}
             />
           ))
         }
-        {filteredPets.length === 0 && <p>Nenhum animal encontrado com esse nome.</p>}
+        {filteredPets.length === 0 && !error && <p>Nenhum animal encontrado com esse nome.</p>}
+        {error && <p>{error}</p>}
       </div>
     </motion.section>
   );

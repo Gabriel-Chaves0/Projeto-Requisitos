@@ -14,6 +14,20 @@ O projeto abrange todos os envolvidos no processo da adoção do animal, ou seja
 
 A principal missão do nosso sistema é facilitar e agilizar esse processo, mantendo um alto cuidado com os animais e oferecendo suporte quando necessário a todos os envolvidos nesse meio. Criando um ambiente seguro e acolhedor, onde cada adoção seja feita com responsabilidade e transparência, garantindo que os animais encontrem lares amorosos e adequados, enquanto os adotantes têm acesso a toda a orientação e apoio necessários para cuidar de seus novos companheiros.
 
+## Padrões de projetos adotados
+### 1. Singleton: JpaMapeador
+O padrão Singleton foi implementado na classe ```JpaMapeador```, localizada em ```persistencia/jpa/src/main/java/lp/jpa/adocao/JpaMapeador.java```. Este padrão é utilizado para garantir que apenas uma instância do mapeador JPA esteja disponível durante a execução da aplicação. Ele é útil para centralizar a configuração e mapeamento de objetos de domínio para entidades persistentes, promovendo consistência e evitando a criação desnecessária de múltiplas instâncias.
+
+### 2. Strategy: Filtros no Controller de Animal
+O padrão Strategy é aplicado no controle de pesquisas de animais, com diferentes estratégias de filtro, como por idade, nome e raça. As implementações podem ser encontradas nas seguintes classes:
+
+- ```PesquisarAnimalStrategy```: Define a interface base para as estratégias de pesquisa.
+- ```PesquisaPorIdade```: Implementa a estratégia para filtrar animais por idade.
+- ```PesquisaPorNome```: Implementa a estratégia para filtrar animais por nome.
+- ```PesquisaPorRaca```: Implementa a estratégia para filtrar animais por raça.
+
+Essas estratégias são gerenciadas pela classe ContextoPesquisaAnimal, que permite aplicar múltiplos filtros de maneira flexível. A abordagem facilita a manutenção e a extensão do código, já que novas formas de pesquisa podem ser adicionadas sem modificar o comportamento existente.
+
 ## Requisitos da 1ª entrega
 - Descrição do dominio
 - Mapa de contexto
@@ -27,7 +41,7 @@ A principal missão do nosso sistema é facilitar e agilizar esse processo, mant
 - Camada de persistência e memória
 
 ## Requisitos da 2ª entrega
-- Os mesmos da 1ª entrega
-- Adotar 4 ou mais padrões de projeto
+- Os mesmos da 1ª entrega 
+- Adotar 2 ou mais padrões de projeto
 - Implementar a camada de persistencia com mapeamento objeto relacional
 - Implementar a camada de apresentação web
